@@ -1,6 +1,112 @@
 ---
+import Link from "./Link.astro";
 ---
-<div class="max-w-screen-xl mx-auto text-white">
-    Header/Navigation
-</div>
-    
+
+<nav x-data="{ open:false, items:['Om mig','Projekter','Lejeplads'] }"
+     @keydown.escape="open=false"
+     class="fixed inset-x-0 top-0 z-50 bg-white/80 backdrop-blur border-b border-neutral-100">
+
+  <div class="mx-auto w-full px-4 lg:px-8">
+    <div class="flex h-16 items-center justify-between">
+      <!-- Logo -->
+      <a href="/" aria-label="Logo" class="shrink-0 flex items-center gap-2">
+        <img src="/svg/elby_logo.svg" alt="Logo" class="h-8 w-auto" />
+      </a>
+
+      <!-- Desktop menu -->
+      <ul class="hidden md:flex items-center justify-center gap-10 text-[15px] font-medium">
+        <li><a href="/om" class="hover:opacity-80">Om mig</a></li>
+        <li><a href="/projekter" class="hover:opacity-80">Projekter</a></li>
+        <li><a href="/lejeplads" class="hover:opacity-80">Lejeplads</a></li>
+      </ul>
+
+      <!-- Desktop language pill -->
+      <div class="hidden md:flex items-center">
+        <div class="flex items-center rounded-full border border-neutral-200 p-1 shadow-sm">
+          <button class="px-3 py-1 rounded-full text-[13px] font-semibold bg-acc_yel-500 text-black">Eng</button>
+          <button class="px-3 py-1 rounded-full text-[13px] text-neutral-700">Dan</button>
+        </div>
+      </div>
+
+      <!-- Mobile: burger (fixed width, crossfade) -->
+      <button
+        class="relative md:hidden flex items-center justify-end gap-2 w-[92px] h-10"
+        :aria-expanded="open"
+        aria-controls="mobile-drawer"
+        @click="open=!open">
+        <span class="relative inline-flex items-center justify-center w-6 h-6">
+          <img x-show="!open" x-transition.opacity.duration.150 src="/menu.webp" alt="" class="h-6 w-6" />
+          <img x-show="open"  x-transition.opacity.duration.150 src="/close.svg" alt="" class="h-6 w-6 absolute inset-0" />
+        </span>
+        <span x-show="!open" x-transition.opacity.duration.100 class="text-[16px]">Menu</span>
+        <span x-show="open"  x-transition.opacity.duration.100 class="text-[16px]">Close</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile drawer -->
+  <div id="mobile-drawer" class="md:hidden">
+    <!-- Backdrop -->
+    <div x-show="open" @click="open=false"
+         x-transition.opacity
+         class="fixed inset-0 z-40 bg-black/40"></div>
+
+    <!-- Panel (full width to match phone) -->
+    <aside x-show="open" x-cloak
+           x-transition:enter="transform transition ease-out duration-250"
+           x-transition:enter-start="translate-x-full"
+           x-transition:enter-end="translate-x-0"
+           x-transition:leave="transform transition ease-in duration-200"
+           x-transition:leave-start="translate-x-0"
+           x-transition:leave-end="translate-x-full"
+           class="fixed right-0 top-0 z-50 h-full w-full bg-white shadow-xl">
+      <div class="flex h-full flex-col px-6 pt-4 pb-8">
+        <!-- Top row -->
+        <div class="flex items-center justify-between h-12">
+          <a href="/" aria-label="Logo in drawer" class="flex items-center gap-2">
+            <img src="/svg/elby_logo.svg" alt="Logo" class="h-7 w-auto" />
+          </a>
+          <button class="flex items-center gap-2 text-[16px]" @click="open=false">
+            <img src="/close.svg" alt="" class="h-6 w-6" /><span>Close</span>
+          </button>
+        </div>
+
+        <!-- Links: stagger + parallax -->
+        <ul class="mt-10 flex flex-col gap-8 text-[22px] font-medium">
+          <template x-for="(item,i) in items" :key="item">
+            <li>
+              <a :href="['/om','/projekter','/lejeplads'][i]"
+                 x-show="open"
+                 x-transition:enter="transform transition ease-out duration-300"
+                 x-transition:enter-start="opacity-0 -translate-y-3"
+                 x-transition:enter-end="opacity-100 translate-y-0"
+                 x-transition:leave="transform transition ease-in duration-150"
+                 x-transition:leave-start="opacity-100 translate-y-0"
+                 x-transition:leave-end="opacity-0 -translate-y-2"
+                 :style="`transition-delay:${i*70}ms`"
+                 class="block">
+                <span x-text="item"></span>
+              </a>
+            </li>
+          </template>
+        </ul>
+
+        <!-- Language pill (appears after links) -->
+        <div class="mt-auto pt-12">
+          <div x-show="open"
+               x-transition:enter="transform transition ease-out duration-400"
+               x-transition:enter-start="opacity-0 translate-y-2"
+               x-transition:enter-end="opacity-100 translate-y-0"
+               x-transition:leave="transform transition ease-in duration-150"
+               x-transition:leave-start="opacity-100 translate-y-0"
+               x-transition:leave-end="opacity-0 translate-y-1"
+               :style="`transition-delay:${items.length*70}ms`"
+               class="inline-flex items-center rounded-full border border-neutral-200 p-1 shadow-sm">
+            <button class="px-3 py-1 rounded-full text-[13px] font-semibold bg-acc_yel-500 text-black">Eng</button>
+            <button class="px-3 py-1 rounded-full text-[13px] text-neutral-700">Dan</button>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+</nav>

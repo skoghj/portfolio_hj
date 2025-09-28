@@ -17,6 +17,7 @@
     "alpinejs": "^3.14.1",
     "animate.css": "^4.1.1",
     "astro": "^4.15.3",
+    "gsap": "^3.13.0",
     "motion": "^10.18.0"
   },
   "devDependencies": {
