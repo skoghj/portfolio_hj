@@ -1,5 +1,6 @@
 ---
 import MainLayout from "../layouts/MainLayout.astro";
+import MoreAboutMe from "../components/MoreAboutMe.astro";
 ---
 
 <MainLayout title="Home">
@@ -53,7 +54,7 @@ import MainLayout from "../layouts/MainLayout.astro";
       observer.observe($el);
     "
     @scroll.window.passive="y = window.scrollY || 0"
-    class="mx-auto max-w-6xl px-5 md:px-6 py-14 md:py-24"
+    class="mx-auto max-w-6xl px-5 md:px-6 py-14 md:py-28"
   >
     <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-start">
       <!-- Text -->
@@ -147,7 +148,7 @@ import MainLayout from "../layouts/MainLayout.astro";
         I design experience-driven concepts combining intuition and storytelling
       </h3>
 
-      <div class="grid gap-8 md:grid-cols-3">
+      <div class="grid gap-8 md:grid-cols-3 md:py-8">
         <!-- Card 1 -->
         <div 
           x-show="inView"
@@ -211,49 +212,64 @@ import MainLayout from "../layouts/MainLayout.astro";
     </div>
   </section>
   <!-- ===================== TOOLS SECTION ===================== -->
-  <section 
-    x-data="{ inView: false }"
-    x-init="
-      const observer = new IntersectionObserver((entries) => {
-        inView = entries[0].isIntersecting;
-      }, { threshold: 0.15 });
-      observer.observe($el);
-    "
-    class="bg-white"
-  >
-    <div class="mx-auto max-w-6xl px-5 md:px-6 py-16 md:py-28">
-      <h3 
-        x-show="inView"
-        x-transition:enter="transition ease-out duration-700"
-        x-transition:enter-start="opacity-0 transform translate-y-6"
-        x-transition:enter-end="opacity-100 transform translate-y-0"
-        class="mb-10 text-2xl md:text-4xl font-extrabold text-neutral-900 will-change-transform will-change-opacity transform-gpu"
-      >
-        I use a wide range of digital tools
-      </h3>
+<section
+  x-data="{
+    inView:false, prog:0,
+    tools: [
+      { name:'Adobe Cloud', src:'/cloud.svg',  s:12 },
+      { name:'Figma',       src:'/figma.svg',  s:10 },
+      { name:'VS Code',     src:'/vscode.svg', s:14 },
+      { name:'GitHub',      src:'/github.svg', s:9  },
+      { name:'AI',          src:'/ai.svg',     s:11 },
+      { name:'Netlify',     src:'/netlify.svg',s:13 },
+    ],
+    calcProg(){
+      const r = this.$el.getBoundingClientRect();
+      const vh = window.innerHeight || 1;
+      // 섹션이 화면을 지날 때 0→1→0 느낌의 부드러운 진행값
+      const raw = (vh - r.top) / (vh + r.height*0.6);
+      this.prog = Math.max(0, Math.min(1, raw));
+    }
+  }"
+  x-init="
+    const io = new IntersectionObserver((es)=>{ inView = es[0].isIntersecting }, {threshold:0.15});
+    io.observe($el);
+    calcProg();
+  "
+  @scroll.window.throttle.16ms="calcProg()"
+  class="bg-white"
+>
+  <div class="mx-auto max-w-6xl px-5 md:px-6 pb-28 ">
+    <h3
+      x-show="inView"
+      x-transition:enter="transition ease-out duration-700"
+      x-transition:enter-start="opacity-0 translate-y-6"
+      x-transition:enter-end="opacity-100 translate-y-0"
+      class="mb-10 text-2xl md:text-4xl font-extrabold text-neutral-900 will-change-transform will-change-opacity transform-gpu"
+    >
+      I use a wide range of digital tools
+    </h3>
 
-      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-8 text-center">
-        <template x-for="tool in [
-          { name:'Adobe Cloud', src:'/cloud.svg' },
-          { name:'Figma', src:'/figma.svg' },
-          { name:'VS Code', src:'/vscode.svg' },
-          { name:'GitHub', src:'/github.svg' },
-          { name:'AI', src:'/ai.svg' },
-          { name:'Netlify', src:'/netlify.svg' }
-        ]" :key="tool.name">
-          <div 
-            x-show="inView"
-            x-transition:enter="transition ease-out duration-600"
-            x-transition:enter-start="opacity-0 transform translate-y-6"
-            x-transition:enter-end="opacity-100 transform translate-y-0"
-            class="flex flex-col items-center gap-3 will-change-transform will-change-opacity transform-gpu"
-          >
-            <img :src="tool.src" :alt="tool.name" class="h-12 w-12 object-contain" loading="lazy" />
-            <p class="text-sm font-medium text-neutral-800" x-text="tool.name"></p>
-          </div>
-        </template>
-      </div>
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-10 md:gap-8 text-center md:py-8">
+      <template x-for="(tool, i) in tools" :key="tool.name">
+        <div
+          x-show="inView"
+          x-transition:enter="transition ease-out duration-600"
+          x-transition:enter-start="opacity-0 translate-y-6"
+          x-transition:enter-end="opacity-100 translate-y-0"
+          class="flex flex-col items-center gap-3 will-change-transform will-change-opacity transform-gpu"
+          :style="`transform: translateY(${(1-prog) * tool.s}px)`"
+        >
+          <img :src="tool.src" :alt="tool.name" class="h-12 w-12 object-contain" loading="lazy" />
+          <p class="text-sm font-medium text-neutral-800" x-text="tool.name"></p>
+        </div>
+      </template>
     </div>
-  </section>
+  </div>
+</section>
+
+<!-- ===================== MORE ABOUT ME (Parallax + Folder Stack) ===================== -->
+
+<MoreAboutMe></MoreAboutMe>
 
 </MainLayout>
