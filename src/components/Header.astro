@@ -15,7 +15,7 @@ import Link from "./Link.astro";
 
       <!-- Desktop menu -->
       <ul class="hidden md:flex items-center justify-center gap-10 text-[15px] font-medium">
-        <li><a href="/om" class="hover:opacity-80">Om mig</a></li>
+        <li><a href="/aboutme" class="hover:opacity-80">Om mig</a></li>
         <li><a href="/projekter" class="hover:opacity-80">Projekter</a></li>
         <li><a href="/lejeplads" class="hover:opacity-80">Lejeplads</a></li>
       </ul>
@@ -110,3 +110,22 @@ import Link from "./Link.astro";
     </aside>
   </div>
 </nav>
+<script is:inline>
+      (function () {
+        const nav = document.getElementById('main-nav');
+        if (!nav) return;
+
+        nav.addEventListener('click', (e) => {
+          const a = e.target.closest('a[href]');
+          if (!a) return;
+
+          // 문 애니메이션 엔트리 포인트가 있으면: 기본 이동 막고 애니메이션 경로 지정
+          if (window.__doorEnter) {
+            e.preventDefault();
+            window.__doorTarget = a.getAttribute('href'); // 목적지 갱신
+            window.__doorEnter();                         // 문 애니메이션 트리거
+          }
+          // 없으면(문이 없는 페이지 등): 일반 링크 이동
+        });
+      })();
+    </script>

@@ -1,179 +1,233 @@
----
----
-<!-- ============== About / Folder Stack section ============== -->
-<section id="about-folders" class="section">
-  <div class="container">
-    <!-- Left: copy -->
-    <div class="copy parallax" data-depth="0.1">
+<!-- ============== About / Folder Stack (in-section cinematic reveal) ============== -->
+<section id="about-folders" class="absec">
+  <div class="absec__container">
+    <!-- Left copy -->
+    <div class="copy parallax" data-depth="0.08">
       <h2>More about me</h2>
       <p>I build playful, story-driven interactions that feel alive.</p>
     </div>
 
-    <!-- Right: stacked folders -->
-    <div class="stack parallax" data-depth="0.2" aria-label="folder stack">
-      <!-- 각 폴더는 버튼. data-*에 보여줄 콘텐츠를 넣어두고 클릭 시 drawer로 전달 -->
+    <!-- Right: folder stack -->
+    <div class="stack parallax" data-depth="0.16" aria-label="folder stack">
+      <!-- 각 폴더는 버튼. 클릭하면 아래 .reveal이 “섹션 폭만큼” 시네마틱하게 열림 -->
       <button class="folder f1"
-        data-title="Blue — Tools I love"
-        data-image="/1.svg"
-        data-text="Figma, VS Code, GitHub로 작업해요. 필요하면 간단한 툴도 직접 만들어요.">
-      </button>
+        data-title="Text title"
+        data-text="for now, just something text her."
+        data-image="/your-image.jpg" aria-label="Open blue folder"></button>
 
       <button class="folder f2"
-        data-title="Pink — Side Projects"
-        data-image="/2.svg"
-        data-text="작은 인터랙션 실험들을 즐깁니다. 애니메이션·제스처에 관심이 많아요.">
-      </button>
+        data-title="Pink"
+        data-text="Side project notes here."
+        data-image="/your-image-2.jpg" aria-label="Open pink folder"></button>
 
       <button class="folder f3"
-        data-title="Green — Process"
-        data-image="/3.svg"
-        data-text="빠른 프로토타입 → 사용자 피드백 → 다듬기. 기록을 남기는 편이에요.">
-      </button>
+        data-title="Green"
+        data-text="Process / sketches."
+        data-image="/your-image-3.jpg" aria-label="Open green folder"></button>
 
       <button class="folder f4"
-        data-title="Yellow — Background"
-        data-image="/4.svg"
-        data-text="스토리텔링 기반 UI/브랜딩을 해왔고, 프론트엔드 협업을 좋아해요.">
-      </button>
+        data-title="Yellow"
+        data-text="Background, timeline, small bio."
+        data-image="/your-image-4.jpg" aria-label="Open yellow folder"></button>
 
       <button class="folder f5"
-        data-title="Gray — Contact"
-        data-image="/5.svg"
-        data-text="프로젝트가 있다면 언제든 편하게 연락 주세요 :)">
-      </button>
+        data-title="Gray"
+        data-text="Contact me anytime."
+        data-image="/your-image-5.jpg" aria-label="Open gray folder"></button>
     </div>
   </div>
 
-  <!-- Drawer (섹션 내부에서 열리고 닫히는 영역) -->
-  <div class="drawer" aria-hidden="true">
-    <div class="drawer-inner">
-      <div class="drawer-head">
-        <h3 id="drawerTitle">Title</h3>
-        <button class="close" aria-label="Close">×</button>
-      </div>
-      <div class="drawer-body">
-        <img id="drawerImg" alt="" />
-        <p id="drawerText"></p>
+  <!-- ▲ 위 컨테이너 ‘안’에서만 확장되는 시네마틱 리빌 -->
+  <div class="reveal" aria-hidden="true">
+    <!-- 좌/우 커튼 (pseudo로 제어) -->
+    <div class="reveal__inner">
+      <button class="reveal__close" aria-label="Close">×</button>
+
+      <!-- 원하는 레이아웃 (피그마 스샷처럼 좌 텍스트 / 우 이미지) -->
+      <div class="reveal__grid">
+        <div class="reveal__text">
+          <small class="reveal__kicker">Frame 29</small>
+          <h3 id="rvTitle">Text title</h3>
+          <p id="rvBody">for now, just something text her.</p>
+        </div>
+        <div class="reveal__media">
+          <img id="rvImg" src="" alt="">
+        </div>
       </div>
     </div>
   </div>
 </section>
-
 <style>
-  /* layout */
-  .section { position: relative; overflow: clip; background:#e7f4f7; }
-  .container{
-    max-width:1200px; margin:0 auto; padding:64px 20px;
-    display:grid; grid-template-columns:1fr 1fr; gap:32px; align-items:center;
-    min-height:640px;
-  }
-  .copy h2{ font-size: clamp(28px, 4vw, 44px); margin:0 0 12px; }
-  .copy p{ color:#333; opacity:.8; margin:0; }
+    /* ---------- Base layout ---------- */
+.absec{ position:relative; background:#e7f4f7; overflow:clip; }
+.absec__container{
+  --g:32px;
+  max-width:1200px; margin:0 auto; padding:64px 20px;
+  display:grid; grid-template-columns:1fr 1fr; gap:var(--g); align-items:center;
+  min-height:640px;
+}
+.copy h2{ font-size:clamp(28px,4vw,44px); margin:0 0 10px; }
+.copy p{ margin:0; color:#1f1f1f; opacity:.8; }
 
-  /* stacked folders */
-  .stack{ position:relative; height:520px; }
-  .folder{
-    position:absolute; left:0; right:0; margin-inline:auto;
-    width:min(540px, 80%); height:220px; border:0; padding:0; cursor:pointer;
-    background-size:contain; background-repeat:no-repeat; background-position:center bottom;
-    transform:translateY(0) translateZ(0); transition:transform .35s ease, filter .35s ease;
-    filter:drop-shadow(0 10px 18px rgba(0,0,0,.08));
-  }
-  .folder:focus-visible{ outline:2px solid #222; outline-offset:4px; }
-  /* 각 폴더 배경(SVG) & 위치(겹침) */
-  .f1{ z-index:5; bottom:0;    background-image:url("/1.svg"); }
-  .f2{ z-index:4; bottom:80px; background-image:url("/2.svg"); }
-  .f3{ z-index:3; bottom:150px;background-image:url("/3.svg"); }
-  .f4{ z-index:2; bottom:220px;background-image:url("/4.svg"); }
-  .f5{ z-index:1; bottom:290px;background-image:url("/5.svg"); }
+/* ---------- Folder stack ---------- */
+.stack{ position:relative; height:520px; }
+.folder{
+  position:absolute; left:0; right:0; margin-inline:auto;
+  width:min(540px,80%); height:220px; border:0; padding:0; cursor:pointer;
+  background-size:contain; background-repeat:no-repeat; background-position:center bottom;
+  transform:translateY(0); transition:transform .35s ease, filter .35s ease;
+  filter:drop-shadow(0 10px 18px rgba(0,0,0,.08));
+}
+.folder:hover{ transform:translateY(-6px); filter:drop-shadow(0 16px 26px rgba(0,0,0,.14)); }
 
-  /* hover 살짝 튀어나오는 느낌 */
-  .folder:hover{ transform:translateY(-6px); filter:drop-shadow(0 16px 26px rgba(0,0,0,.14)); }
+/* 당신이 Export한 SVG 경로/이름으로 교체 */
+.f1{ z-index:5; bottom:0;    background-image:url("/1.svg"); }
+.f2{ z-index:4; bottom:80px; background-image:url("/2.svg"); }
+.f3{ z-index:3; bottom:150px;background-image:url("/3.svg"); }
+.f4{ z-index:2; bottom:220px;background-image:url("/4.svg"); }
+.f5{ z-index:1; bottom:290px;background-image:url("/5.svg"); }
 
-  /* Drawer */
-  .drawer{
-    position:relative; max-width:1200px; margin: 0 auto; padding:0 20px 40px;
-    display:none;
-  }
-  .drawer[open]{ display:block; }
-  .drawer-inner{
-    background:#fff; border-radius:16px; box-shadow: 0 12px 40px rgba(0,0,0,.12);
-    overflow:hidden; animation:slideIn .35s ease;
-  }
-  .drawer-head{
-    display:flex; align-items:center; gap:12px; justify-content:space-between;
-    padding:16px 20px; background:#f6fafb; border-bottom:1px solid #e7eef0;
-  }
-  .drawer-head h3{ margin:0; font-size:20px; }
-  .drawer-head .close{
-    border:0; background:#101012; color:#fff; width:32px; height:32px; border-radius:8px;
-    cursor:pointer; line-height:32px; font-size:20px; display:grid; place-items:center;
-  }
-  .drawer-body{ display:grid; grid-template-columns:320px 1fr; gap:20px; padding:20px; }
-  .drawer-body img{ width:100%; height:220px; object-fit:cover; border-radius:10px; }
-  @media (max-width: 900px){
-    .container{ grid-template-columns:1fr; }
-    .stack{ height:440px; order:2; }
-    .drawer-body{ grid-template-columns:1fr; }
-  }
-  @keyframes slideIn{
-    from{ transform:translateY(8px); opacity:0 }
-    to{ transform:translateY(0); opacity:1 }
-  }
+/* ---------- Cinematic in-section reveal ---------- */
+/* 섹션 ‘가운데’에, 섹션 폭만큼만 확장되는 캔버스 */
+.reveal{
+  --pad:20px;
+  position:absolute; left:50%; transform:translateX(-50%);
+  top:0; width:min(1200px, 100% - calc(var(--pad)*2)); padding:0 var(--pad);
+  height:0; pointer-events:none; /* 닫힌 상태엔 클릭 막기 */
+  transition:height .65s cubic-bezier(.2,.8,.2,1);
+  z-index:10;
+}
+
+/* 내부 카드 */
+.reveal__inner{
+  position:relative; background:#f6f7f8; border-radius:16px; overflow:hidden;
+  box-shadow:0 20px 50px rgba(0,0,0,.16);
+  opacity:0; transform:translateY(18px);
+  transition:opacity .45s ease .25s, transform .45s ease .25s;
+}
+
+/* 좌/우 커튼: pseudo 대신 래퍼에 배경을 두겹으로 깔아 애니메이션 */
+.reveal__inner::before,
+.reveal__inner::after{
+  content:""; position:absolute; inset:0; background:#e7f4f7;
+  will-change:transform;
+}
+.reveal__inner::before{ clip-path:inset(0 50% 0 0); transform:translateX(0); }
+.reveal__inner::after { clip-path:inset(0 0 0 50%); transform:translateX(0); }
+
+/* 오픈 상태 */
+.reveal[data-open="true"]{ pointer-events:auto; }
+.reveal[data-open="true"] .reveal__inner{
+  opacity:1; transform:none;
+}
+.reveal[data-open="true"] .reveal__inner::before{
+  transform:translateX(-102%); transition:transform .78s cubic-bezier(.2,.8,.2,1);
+}
+.reveal[data-open="true"] .reveal__inner::after{
+  transform:translateX(102%); transition:transform .78s cubic-bezier(.2,.8,.2,1) .07s;
+}
+
+/* 컨텐츠 레이아웃 (피그마 스샷과 유사) */
+.reveal__grid{
+  display:grid; grid-template-columns:1fr 1.1fr; gap:32px;
+  align-items:center; padding:48px clamp(16px,3vw,40px) 56px;
+}
+.reveal__kicker{ color:#b8b8b8; font-weight:600; letter-spacing:.02em; }
+.reveal__text h3{ font-size:clamp(28px,4vw,56px); line-height:1.04; margin:.2em 0 .3em; }
+.reveal__text p{ font-size:clamp(14px,1.4vw,18px); font-weight:700; opacity:.85; }
+
+.reveal__media{ width:100%; aspect-ratio:16/10; overflow:hidden; border-radius:12px; }
+.reveal__media img{ width:100%; height:100%; object-fit:cover; transform:scale(1.04); }
+
+/* 닫기 버튼 */
+.reveal__close{
+  position:absolute; top:10px; right:10px; z-index:2;
+  width:36px; height:36px; border-radius:10px; border:0; cursor:pointer;
+  background:#0f1113; color:#fff; font-size:22px; line-height:36px;
+  box-shadow:0 6px 18px rgba(0,0,0,.25);
+}
+
+/* ---------- Parallax (가벼운) ---------- */
+.parallax{ will-change:transform; }
+
+@media (max-width: 900px){
+  .absec__container{ grid-template-columns:1fr; }
+  .stack{ order:2; height:440px; }
+  .reveal__grid{ grid-template-columns:1fr; gap:18px; padding:28px 18px 32px; }
+}
+
 </style>
-
 <script>
-  // -------- parallax (가벼운 스크롤 패럴랙스)
-  (() => {
-    const section = document.querySelector('#about-folders');
-    const layers = section.querySelectorAll('.parallax');
-
-    const onScroll = () => {
-      const rect = section.getBoundingClientRect();
-      // 섹션이 보일 때만 계산
-      if (rect.bottom < 0 || rect.top > innerHeight) return;
-      const progress = (innerHeight - rect.top) / (innerHeight + rect.height); // 0~1 근사
-      layers.forEach(el => {
-        const depth = parseFloat(el.dataset.depth || 0.1);
-        el.style.transform = `translateY(${(progress - 0.5) * depth * -60}px)`;
-      });
-    };
-    addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-  })();
-
-  // -------- folder click -> drawer 열기/업데이트/닫기
-  (() => {
-    const sec = document.querySelector('#about-folders');
-    const drawer = sec.querySelector('.drawer');
-    const title = sec.querySelector('#drawerTitle');
-    const img = sec.querySelector('#drawerImg');
-    const text = sec.querySelector('#drawerText');
-    const closeBtn = sec.querySelector('.drawer .close');
-
-    function openFrom(btn){
-      title.textContent = btn.dataset.title || 'Details';
-      const src = btn.dataset.image;
-      if (src){ img.src = src; img.style.display = ''; }
-      else { img.removeAttribute('src'); img.style.display = 'none'; }
-      text.textContent = btn.dataset.text || '';
-      drawer.setAttribute('open','');
-      drawer.setAttribute('aria-hidden','false');
-      // 살짝 스크롤 붙여주기(섹션 안에서 열리는 느낌)
-      drawer.scrollIntoView({ behavior:'smooth', block:'nearest' });
-    }
-    function close(){
-      drawer.removeAttribute('open');
-      drawer.setAttribute('aria-hidden','true');
-    }
-
-    sec.querySelectorAll('.folder').forEach(btn=>{
-      btn.addEventListener('click', ()=>openFrom(btn));
-      // 키보드 접근성
-      btn.addEventListener('keydown', (e)=>{
-        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openFrom(btn); }
-      });
+    /* ---------- Parallax ---------- */
+(() => {
+  const sec = document.querySelector('#about-folders');
+  const layers = sec.querySelectorAll('.parallax');
+  const onScroll = () => {
+    const r = sec.getBoundingClientRect();
+    if (r.bottom < 0 || r.top > innerHeight) return;
+    const t = (innerHeight - r.top) / (innerHeight + r.height); // ~0..1
+    layers.forEach(el=>{
+      const d = parseFloat(el.dataset.depth || 0.1);
+      el.style.transform = `translateY(${(t - 0.5) * d * -80}px)`;
     });
-    closeBtn.addEventListener('click', close);
-  })();
+  };
+  addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+})();
+
+/* ---------- Folder click -> in-section cinematic reveal ---------- */
+(() => {
+  const sec     = document.querySelector('#about-folders');
+  const reveal  = sec.querySelector('.reveal');
+  const inner   = reveal.querySelector('.reveal__inner');
+  const titleEl = sec.querySelector('#rvTitle');
+  const bodyEl  = sec.querySelector('#rvBody');
+  const imgEl   = sec.querySelector('#rvImg');
+  const close   = sec.querySelector('.reveal__close');
+
+  // 열릴 높이를 컨텐츠 실제 높이에 맞춰 부드럽게(0 -> H)
+  function setOpenHeight() {
+    // 잠시 높이를 'auto'로 두고 측정
+    inner.style.position = 'absolute';
+    inner.style.visibility = 'hidden';
+    inner.style.inset = 'auto';
+    inner.style.width = '100%';
+    document.body.offsetHeight; // force reflow
+    const H = inner.scrollHeight;
+    inner.style.position = '';
+    inner.style.visibility = '';
+    reveal.style.height = H + 'px';
+  }
+
+  function openFrom(btn){
+    titleEl.textContent = btn.dataset.title || '';
+    bodyEl.textContent  = btn.dataset.text  || '';
+    if (btn.dataset.image){
+      imgEl.src = btn.dataset.image;
+      imgEl.alt = btn.dataset.title || '';
+    } else {
+      imgEl.removeAttribute('src');
+    }
+
+    reveal.dataset.open = 'true';
+    setOpenHeight();
+
+    // 살짝 스크롤(섹션 안에서만)
+    reveal.scrollIntoView({behavior:'smooth', block:'nearest'});
+  }
+
+  function closeReveal(){
+    reveal.dataset.open = 'false';
+    reveal.style.height = '0px';
+  }
+
+  sec.querySelectorAll('.folder').forEach(btn=>{
+    btn.addEventListener('click', ()=>openFrom(btn));
+    btn.addEventListener('keydown', e=>{
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openFrom(btn); }
+    });
+  });
+  close.addEventListener('click', closeReveal);
+})();
+
 </script>

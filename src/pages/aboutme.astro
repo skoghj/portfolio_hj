@@ -1,0 +1,275 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import MoreAboutMe from "../components/MoreAboutMe.astro";
+---
+
+<MainLayout title="About Me">
+  <!-- ===================== HERO ===================== -->
+  <section
+    x-data="{ 
+      y: 0,
+      heroVisible: false
+    }"
+    x-init="
+      y = window.scrollY || 0;
+      setTimeout(() => heroVisible = true, 300);
+    "
+    @scroll.window.passive="y = window.scrollY || 0"
+    class="relative h-[80vh] md:h-[92vh] overflow-hidden"
+  >
+    <!-- Parallax background -->
+    <img
+      x-bind:style="{ transform: 'translateY(' + (y * 0.3) + 'px)' }"
+      src="/hero.png"
+      alt="Hero"
+      class="absolute inset-0 h-full w-full object-cover will-change-transform"
+    />
+
+    <!-- Hero Title -->
+    <div class="relative z-10 flex h-full items-center justify-center">
+      <h1 
+        x-show="heroVisible"
+        x-transition:enter="transition ease-out duration-1000"
+        x-transition:enter-start="opacity-0 transform translate-y-8"
+        x-transition:enter-end="opacity-100 transform translate-y-0"
+        class="text-4xl md:text-7xl font-extrabold tracking-tight text-white drop-shadow-md"
+      >
+        Welcome to my space
+      </h1>
+    </div>
+
+    <div class="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/25 to-transparent"></div>
+  </section>
+
+  <!-- ===================== SECTION A ===================== -->
+  <section 
+    x-data="{ 
+      inView: false,
+      y: 0
+    }"
+    x-init="
+      const observer = new IntersectionObserver((entries) => {
+        inView = entries[0].isIntersecting;
+      }, { threshold: 0.3 });
+      observer.observe($el);
+    "
+    @scroll.window.passive="y = window.scrollY || 0"
+    class="mx-auto max-w-6xl px-5 md:px-6 py-14 md:py-28"
+  >
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-start">
+      <!-- Text -->
+      <div class="md:col-span-6">
+        <h2 
+          x-show="inView"
+          x-transition:enter="transition ease-out duration-800 delay-100"
+          x-transition:enter-start="opacity-0 transform translate-y-8"
+          x-transition:enter-end="opacity-100 transform translate-y-0"
+          x-transition:leave="transition ease-in duration-400"
+          x-transition:leave-start="opacity-100 transform translate-y-0"
+          x-transition:leave-end="opacity-0 transform translate-y-8"
+          class="mb-4 md:mb-6 text-2xl md:text-5xl font-bold"
+        >
+          Nice to meet you
+        </h2>
+
+        <p 
+          x-show="inView"
+          x-transition:enter="transition ease-out duration-800 delay-200"
+          x-transition:enter-start="opacity-0 transform translate-y-8"
+          x-transition:enter-end="opacity-100 transform translate-y-0"
+          x-transition:leave="transition ease-in duration-400"
+          x-transition:leave-start="opacity-100 transform translate-y-0"
+          x-transition:leave-end="opacity-0 transform translate-y-8"
+          class="text-[15px] md:text-lg leading-7 md:leading-8 text-neutral-800"
+        >
+          I am a multimedia designer who tells stories through design. With a background in digital concept
+          development, I create user experiences that are intuitive and relatable. I thrive in teamwork,
+          excelling at solving problems and developing ideas, and I aim to design experiences that connect
+          with people by combining strategic thinking and visual creativity.
+        </p>
+
+        <!-- CTA -->
+        <div 
+          x-show="inView"
+          x-transition:enter="transition ease-out duration-800 delay-300"
+          x-transition:enter-start="opacity-0 transform translate-y-8"
+          x-transition:enter-end="opacity-100 transform translate-y-0"
+          x-transition:leave="transition ease-in duration-400"
+          x-transition:leave-start="opacity-100 transform translate-y-0"
+          x-transition:leave-end="opacity-0 transform translate-y-8"
+          class="mt-6 flex flex-wrap gap-3"
+        >
+          <a href="#" class="rounded-md bg-acc_yel-500 px-4 py-2 text-sm font-semibold text-black shadow-sm hover:opacity-90 transition-all hover:scale-105">Download mit CV</a>
+          <a href="#projects" class="rounded-md bg-neutral-900 px-4 py-2 text-sm font-semibold text-white hover:bg-neutral-800 transition-all hover:scale-105">Se mine projekter</a>
+        </div>
+      </div>
+
+      <!-- Profile image -->
+      <div class="md:col-span-6">
+        <div 
+          x-show="inView"
+          x-transition:enter="transition ease-out duration-1000 delay-400"
+          x-transition:enter-start="opacity-0 transform translate-y-12 scale-95"
+          x-transition:enter-end="opacity-100 transform translate-y-0 scale-100"
+          x-transition:leave="transition ease-in duration-400"
+          x-transition:leave-start="opacity-100 transform translate-y-0 scale-100"
+          x-transition:leave-end="opacity-0 transform translate-y-12 scale-95"
+          x-bind:style="{ transform: 'translateY(' + (y * 0.1) + 'px)' }"
+          class="overflow-hidden rounded-xl border border-black/10 shadow-md will-change-transform"
+        >
+          <img src="/profil.png" alt="Profile" class="w-full h-auto object-cover" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SECTION B ===================== -->
+  <section 
+    x-data="{ inView: false }"
+    x-init="
+      const observer = new IntersectionObserver((entries) => {
+        inView = entries[0].isIntersecting;
+      }, { threshold: 0.2 });
+      observer.observe($el);
+    "
+    class="bg-primary-50/50"
+  >
+    <div class="mx-auto max-w-6xl px-5 md:px-6 py-16 md:py-28">
+      <h3 
+        x-show="inView"
+        x-transition:enter="transition ease-out duration-800"
+        x-transition:enter-start="opacity-0 transform translate-y-8"
+        x-transition:enter-end="opacity-100 transform translate-y-0"
+        x-transition:leave="transition ease-in duration-400"
+        x-transition:leave-start="opacity-100 transform translate-y-0"
+        x-transition:leave-end="opacity-0 transform translate-y-8"
+        class="mb-6 md:mb-10 text-2xl  max-w-4xl md:text-4xl font-extrabold text-neutral-900"
+      >
+        I design experience-driven concepts combining intuition and storytelling
+      </h3>
+
+      <div class="grid gap-8 md:grid-cols-3 md:py-8">
+        <!-- Card 1 -->
+        <div 
+          x-show="inView"
+          x-transition:enter="transition ease-out duration-600 delay-100"
+          x-transition:enter-start="opacity-0 transform translate-y-12 scale-95"
+          x-transition:enter-end="opacity-100 transform translate-y-0 scale-100"
+          x-transition:leave="transition ease-in duration-300"
+          x-transition:leave-start="opacity-100 transform translate-y-0 scale-100"
+          x-transition:leave-end="opacity-0 transform translate-y-12 scale-95"
+          class="rounded-2xl bg-white p-6 shadow-sm hover:shadow-lg hover:-translate-y-2 transition-all duration-300"
+        >
+          <div class="mx-auto mb-4 h-12 w-12">
+            <svg viewBox="0 0 24 24" class="h-12 w-12"><path d="M6 12l6-6 6 6-6 6-6-6z" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+          </div>
+          <h4 class="mb-2 text-lg font-semibold text-neutral-900 text-center">Design Thinking</h4>
+          <p class="text-center text-sm leading-6 text-neutral-700">
+            I base my mindset on design thinking, approaching every challenge with structured yet creative methods.
+          </p>
+        </div>
+
+        <!-- Card 2 -->
+        <div 
+          x-show="inView"
+          x-transition:enter="transition ease-out duration-600 delay-200"
+          x-transition:enter-start="opacity-0 transform translate-y-12 scale-95"
+          x-transition:enter-end="opacity-100 transform translate-y-0 scale-100"
+          x-transition:leave="transition ease-in duration-300"
+          x-transition:leave-start="opacity-100 transform translate-y-0 scale-100"
+          x-transition:leave-end="opacity-0 transform translate-y-12 scale-95"
+          class="rounded-2xl bg-white p-6 shadow-sm hover:shadow-lg hover:-translate-y-2 transition-all duration-300"
+        >
+          <div class="mx-auto mb-4 h-12 w-12">
+            <svg viewBox="0 0 24 24" class="h-12 w-12"><path d="M12 3v18M3 12h18" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+          </div>
+          <h4 class="mb-2 text-lg font-semibold text-neutral-900 text-center">Creative Approach</h4>
+          <p class="text-center text-sm leading-6 text-neutral-700">
+            I break mental barriers and push ideas beyond the obvious to explore innovative possibilities.
+          </p>
+        </div>
+
+        <!-- Card 3 -->
+        <div 
+          x-show="inView"
+          x-transition:enter="transition ease-out duration-600 delay-300"
+          x-transition:enter-start="opacity-0 transform translate-y-12 scale-95"
+          x-transition:enter-end="opacity-100 transform translate-y-0 scale-100"
+          x-transition:leave="transition ease-in duration-300"
+          x-transition:leave-start="opacity-100 transform translate-y-0 scale-100"
+          x-transition:leave-end="opacity-0 transform translate-y-12 scale-95"
+          class="rounded-2xl bg-white p-6 shadow-sm hover:shadow-lg hover:-translate-y-2 transition-all duration-300"
+        >
+          <div class="mx-auto mb-4 h-12 w-12">
+            <svg viewBox="0 0 24 24" class="h-12 w-12"><path d="M12 4a5 5 0 015 5v2h1a2 2 0 012 2v5H4v-5a2 2 0 012-2h1V9a5 5 0 015-5z" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+          </div>
+          <h4 class="mb-2 text-lg font-semibold text-neutral-900 text-center">Human-Centered</h4>
+          <p class="text-center text-sm leading-6 text-neutral-700">
+            I always design for people, ensuring solutions that are intuitive, functional, and meaningful.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ===================== TOOLS SECTION ===================== -->
+<section
+  x-data="{
+    inView:false, prog:0,
+    tools: [
+      { name:'Adobe Cloud', src:'/cloud.svg',  s:12 },
+      { name:'Figma',       src:'/figma.svg',  s:10 },
+      { name:'VS Code',     src:'/vscode.svg', s:14 },
+      { name:'GitHub',      src:'/github.svg', s:9  },
+      { name:'AI',          src:'/ai.svg',     s:11 },
+      { name:'Netlify',     src:'/netlify.svg',s:13 },
+    ],
+    calcProg(){
+      const r = this.$el.getBoundingClientRect();
+      const vh = window.innerHeight || 1;
+      // 섹션이 화면을 지날 때 0→1→0 느낌의 부드러운 진행값
+      const raw = (vh - r.top) / (vh + r.height*0.6);
+      this.prog = Math.max(0, Math.min(1, raw));
+    }
+  }"
+  x-init="
+    const io = new IntersectionObserver((es)=>{ inView = es[0].isIntersecting }, {threshold:0.15});
+    io.observe($el);
+    calcProg();
+  "
+  @scroll.window.throttle.16ms="calcProg()"
+  class="bg-white"
+>
+  <div class="mx-auto max-w-6xl px-5 md:px-6 pb-28 ">
+    <h3
+      x-show="inView"
+      x-transition:enter="transition ease-out duration-700"
+      x-transition:enter-start="opacity-0 translate-y-6"
+      x-transition:enter-end="opacity-100 translate-y-0"
+      class="mb-10 text-2xl md:text-4xl font-extrabold text-neutral-900 will-change-transform will-change-opacity transform-gpu"
+    >
+      I use a wide range of digital tools
+    </h3>
+
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-10 md:gap-8 text-center md:py-8">
+      <template x-for="(tool, i) in tools" :key="tool.name">
+        <div
+          x-show="inView"
+          x-transition:enter="transition ease-out duration-600"
+          x-transition:enter-start="opacity-0 translate-y-6"
+          x-transition:enter-end="opacity-100 translate-y-0"
+          class="flex flex-col items-center gap-3 will-change-transform will-change-opacity transform-gpu"
+          :style="`transform: translateY(${(1-prog) * tool.s}px)`"
+        >
+          <img :src="tool.src" :alt="tool.name" class="h-12 w-12 object-contain" loading="lazy" />
+          <p class="text-sm font-medium text-neutral-800" x-text="tool.name"></p>
+        </div>
+      </template>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== MORE ABOUT ME (Parallax + Folder Stack) ===================== -->
+
+<MoreAboutMe></MoreAboutMe>
+
+</MainLayout>
