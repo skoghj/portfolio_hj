@@ -1,81 +1,179 @@
 ---
-import MainLayout from "../layouts/MainLayout.astro";
-const FALLBACK_URL = "/aboutme"; // 기본 이동 경로
+import "../styles/tailwind.css";
+import "animate.css";
+const title = "Welcome | Portfolio";
 ---
 
-<MainLayout title="Landing Page">
-  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<html lang="da">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-  <!-- (변경 #1) FALLBACK_URL을 data 속성으로 주입 -->
-  <div 
-    x-data="doorScene()"
-    x-init="setup()"
-    data-fallback-url={FALLBACK_URL}
-    class="relative min-h-screen w-full overflow-hidden font-[Inter] flex items-center justify-center bg-black text-white"
-  >
-    <div x-ref="scene" class="scene relative w-full h-[90vh] flex items-center justify-center"
-         style="perspective:1200px;" :class="entering ? 'scene-zoom' : ''">
-      <div class="door-wrap relative w-[14vw] h-[22vw] min-w-[170px] min-h-[260px]">
-        <div class="door-light absolute inset-0 bg-white opacity-0 pointer-events-none"
-             :class="open ? 'light-on' : ''"></div>
+    <!-- ✅ Alpine.js + GSAP CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
 
-        <button type="button" @click="enter()" @keydown.enter.prevent="enter()"
-                class="door absolute inset-0 border border-white/80 bg-black cursor-pointer outline-none"
-                :class="open ? 'door-open' : ''"
-                style="transform-origin:left center; transform-style:preserve-3d;">
-          <span class="absolute rounded-full border border-white/80 bg-transparent"
-                style="width:1.1vw; height:1.1vw; min-width:18px; min-height:18px; top:50%; right:10%; transform:translateY(-50%);"></span>
-        </button>
+    <title>{title}</title>
+  </head>
+
+  <body class="bg-black text-white overflow-hidden h-screen">
+    <main class="relative h-full w-full" x-data="doorScene()" x-init="updateBeam(); window.addEventListener('resize', updateBeam)">
+      
+      <!-- 🔹 link -->
+      <div class="select-none absolute left-6 md:left-10 top-1/3 z-20 text-[12px] md:text-sm text-gray-300 space-y-3">
+        <a href="/aboutme" @click.prevent="openLink($event)">Om mig</a>
+        <a href="/projects" @click.prevent="openLink($event)">Projekter</a>
+        <a href="/lejeplads" @click.prevent="openLink($event)">Lejeplads</a>
       </div>
-    </div>
 
-    <div class="white-bg absolute inset-0 bg-white opacity-0 pointer-events-none"
-         :class="fadeOut ? 'white-on' : ''" aria-hidden="true"></div>
-  </div>
+      <!-- 🔹 Camera secene -->
+      <div id="camera" class="h-full w-full grid place-items-center [perspective:1400px]">
+        
+        <!-- Enterence -->
+        <h2 class="absolute top-[16%] text-lime-400 text-base md:text-xl tracking-wide z-30">
+          Enter my room
+        </h2>
 
-  <script is:inline>
-    function doorScene() {
-      return {
-        open: false, entering: false, fadeOut: false, locked: false,
-        fallback: '/',
+        <!-- Door(Stage) -->
+        <div id="stage" class="relative z-30">
+          <div
+            id="door"
+            @click.prevent.stop="open"
+            class="relative w-[clamp(80px,12vw,160px)] aspect-[2/3] border border-white bg-black cursor-pointer [transform-style:preserve-3d] origin-left will-change-transform"
+            style="box-shadow: 0 0 0 1px rgba(255,255,255,.15) inset; backface-visibility: visible;"
+          >
+            <!-- Front of door -->
+            <div class="absolute inset-0 bg-black"></div>
 
-        setup() {
-          // (변경 #2) data-fallback-url에서 안전하게 읽기
-          const root = document.querySelector('[data-fallback-url]');
-          this.fallback = (root && root.dataset.fallbackUrl) ? root.dataset.fallbackUrl : '/';
+            <!-- Door inner -->
+            <div
+              id="door-inner"
+              class="absolute inset-0 bg-white"
+              style="transform: rotateY(180deg) translateZ(0.1px); backface-visibility: visible;"
+            ></div>
 
-          // 헤더 인터셉트 방식 쓰는 경우를 대비해 전역 트리거 제공(선택)
-          window.__doorEnter = this.enter.bind(this);
-          if (!window.__doorTarget) window.__doorTarget = this.fallback;
-        },
+            <!-- handle of door -->
+            <div
+              id="handle"
+              class="absolute right-[14%] top-1/2 w-[12px] h-[12px] md:w-[16px] md:h-[16px] rounded-full border border-white/90"
+              style="transform: translateY(-50%) translateZ(2px);"
+            ></div>
+          </div>
 
-        enter() {
-          if (this.locked) return;
-          this.locked = true;
+          <!-- Door frame -->
+          <div
+            aria-hidden
+            class="absolute inset-0 -z-10 w-[clamp(82px,12.2vw,164px)] aspect-[2/3] border border-white/30 translate-x-[2px] translate-y-[2px]"
+          ></div>
+        </div>
 
-          this.open = true;                         // 문 열림
-          setTimeout(() => { this.entering = true; }, 250);  // 줌인
-          setTimeout(() => { this.fadeOut = true; }, 950);   // 화이트 페이드
+        <!-- Shadow light -->
+        <div
+          id="beam"
+          class="pointer-events-none absolute inset-0 z-20 opacity-0 transition-opacity duration-300"
+          style="
+            --lx: 50vw;
+            --rx: 50vw;
+            --y: 62vh;
+            background: radial-gradient(1200px 700px at 50% var(--y), rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.6) 25%, rgba(150,150,150,0.25) 50%, rgba(0,0,0,0) 100%);
+            -webkit-clip-path: polygon(0% 100%, 100% 100%, var(--rx) var(--y), var(--lx) var(--y));
+            clip-path: polygon(0% 100%, 100% 100%, var(--rx) var(--y), var(--lx) var(--y));
+            mix-blend-mode: screen;
+          "
+        ></div>
+      </div>
 
-          // (변경 #3) 전역 타겟이 있으면 그리로, 없으면 fallback으로
-          setTimeout(() => {
-            const target = window.__doorTarget || this.fallback;
-            window.location.href = target;          // 예: "/aboutme", "/work", ...
-          }, 1550);
-        }
-      }
-    }
-  </script>
+      <!-- Fade overlay -->
+      <div id="overlay" class="absolute inset-0 bg-black opacity-0 pointer-events-none z-50"></div>
+    </main>
 
-  <style is:global>
-    .door{ transition:transform 1000ms cubic-bezier(.22,.61,.36,1); will-change:transform; transform:rotateY(0); backface-visibility:hidden;}
-    .door-open{ transform:rotateY(-110deg); }
-    .door-light{ transition:opacity 620ms ease; }
-    .light-on{ opacity:1; }
-    .scene{ transition:transform 900ms cubic-bezier(.22,.61,.36,1); transform:scale(1); will-change:transform; }
-    .scene-zoom{ transform:scale(1.55); }
-    .white-bg{ transition:opacity 700ms ease-in; }
-    .white-on{ opacity:1; }
-    .door:focus-visible{ outline:2px dashed #a3e635; outline-offset:4px; }
-  </style>
-</MainLayout>
+    <!-- ✅ Alpine + GSAP Script -->
+    <script>
+      document.addEventListener("alpine:init", () => {
+        Alpine.data("doorScene", () => ({
+          targetUrl: "/aboutme", // 기본 클릭 시 이동할 페이지
+          isAnimating: false,
+
+          updateBeam() {
+            const door = document.getElementById("door");
+            const beam = document.getElementById("beam");
+            if (!door || !beam) return;
+            const r = door.getBoundingClientRect();
+            beam.style.setProperty("--lx", r.left + "px");
+            beam.style.setProperty("--rx", r.right + "px");
+            beam.style.setProperty("--y", (r.bottom - 5) + "px");
+          },
+
+          // 🔹 문 클릭 시 (기본 /aboutme)
+          open(event) {
+            event.preventDefault();
+            if (this.isAnimating) return;
+            this.isAnimating = true;
+
+            const door = document.getElementById("door");
+            const inner = document.getElementById("door-inner");
+            const camera = document.getElementById("camera");
+            const beam = document.getElementById("beam");
+            const overlay = document.getElementById("overlay");
+            const stage = document.getElementById("stage");
+
+            this.updateBeam();
+
+            const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+            // 1️⃣ Open door
+            tl.to(door, {
+              duration: 1.2,
+              rotateY: -78,
+              transformOrigin: "left center",
+              ease: "power2.out",
+              boxShadow: "0 0 24px rgba(255,255,255,0.25) inset"
+            }, 0);
+
+            // 2️⃣ Light beam
+            tl.to(beam, { duration: 1.0, opacity: 1, ease: "power2.out" }, 0.05);
+
+            // 3️⃣ Door inner brighten
+            tl.to(inner, {
+              duration: 1.0,
+              backgroundColor: "rgba(255,255,255,0.95)",
+              ease: "power2.out",
+            }, 0.05);
+
+            // 4️⃣ Camera moving to center
+            const rect = stage.getBoundingClientRect();
+            const dx = window.innerWidth / 2 - (rect.left + rect.width / 2);
+            const dy = window.innerHeight / 2 - (rect.top + rect.height / 2);
+
+            tl.to("#camera", {
+              duration: 0.8,
+              x: dx,
+              y: dy,
+              ease: "power3.inOut"
+            }, 0.4);
+
+            // 5️⃣ Zoom in and page transition
+            tl.to("#camera", {
+              duration: 1.0,
+              scale: 5.5,
+              ease: "power3.in",
+              onComplete: () => {
+                window.location.assign(this.targetUrl);
+              }
+            }, 0.9);
+          },
+
+          // 🔹 링크 클릭 시: 클릭된 href로 targetUrl 설정 후 open() 실행
+          openLink(event) {
+            event.preventDefault();
+            const href = event.currentTarget.getAttribute("href");
+            this.targetUrl = href; // 클릭된 링크 주소 저장
+            this.open(event); // 문 열림 애니메이션 실행
+          },
+        }));
+      });
+    </script>
+  </body>
+</html>
