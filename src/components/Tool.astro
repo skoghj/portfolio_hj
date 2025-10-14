@@ -1,0 +1,69 @@
+<!-- ===================== TOOLS SECTION (정렬 및 이름 추가 버전) ===================== -->
+<section 
+  x-data="{ inView: false }"
+  x-init="
+    const observer = new IntersectionObserver((entries) => {
+      inView = entries[0].isIntersecting;
+    }, { threshold: 0.2 });
+    observer.observe($el);
+  "
+  class="bg-white py-24"
+>
+  <div class="max-w-6xl mx-auto px-6">
+    <!-- Title -->
+    <h3
+      x-show="inView"
+      x-transition:enter="transition ease-out duration-700"
+      x-transition:enter-start="opacity-0 translate-y-6"
+      x-transition:enter-end="opacity-100 translate-y-0"
+      class="text-3xl md:text-4xl font-extrabold text-neutral-900 mb-16 text-left"
+    >
+      I use a wide range of digital tools
+    </h3>
+
+    <!-- Tools Grid -->
+    <div 
+      x-show="inView"
+      x-transition:enter="transition ease-out duration-700 delay-150"
+      x-transition:enter-start="opacity-0 translate-y-8"
+      x-transition:enter-end="opacity-100 translate-y-0"
+      class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-y-14 gap-x-12 md:gap-x-16"
+    >
+      <!-- Tool 1 -->
+      <div class="flex flex-col items-center group">
+        <img src="/cloud.svg" alt="Adobe Cloud" class="h-14 md:h-16 mb-4 transition-transform group-hover:scale-110" />
+        <p class="text-sm md:text-base font-medium text-neutral-700 group-hover:text-black">Adobe Cloud</p>
+      </div>
+
+      <!-- Tool 2 -->
+      <div class="flex flex-col items-center group">
+        <img src="/figma.svg" alt="Figma" class="h-14 md:h-16 mb-4 transition-transform group-hover:scale-110" />
+        <p class="text-sm md:text-base font-medium text-neutral-700 group-hover:text-black">Figma</p>
+      </div>
+
+      <!-- Tool 3 -->
+      <div class="flex flex-col items-center group">
+        <img src="/vscode.svg" alt="VS Code" class="h-14 md:h-16 mb-4 transition-transform group-hover:scale-110" />
+        <p class="text-sm md:text-base font-medium text-neutral-700 group-hover:text-black">VS Code</p>
+      </div>
+
+      <!-- Tool 4 -->
+      <div class="flex flex-col items-center group">
+        <img src="/github.svg" alt="GitHub" class="h-14 md:h-16 mb-4 transition-transform group-hover:scale-110" />
+        <p class="text-sm md:text-base font-medium text-neutral-700 group-hover:text-black">GitHub</p>
+      </div>
+
+      <!-- Tool 5 -->
+      <div class="flex flex-col items-center group">
+        <img src="/ai.svg" alt="AI" class="h-14 md:h-16 mb-4 transition-transform group-hover:scale-110" />
+        <p class="text-sm md:text-base font-medium text-neutral-700 group-hover:text-black">AI</p>
+      </div>
+
+      <!-- Tool 6 -->
+      <div class="flex flex-col items-center group">
+        <img src="/netlify.svg" alt="Netlify" class="h-14 md:h-16 mb-4 transition-transform group-hover:scale-110" />
+        <p class="text-sm md:text-base font-medium text-neutral-700 group-hover:text-black">Netlify</p>
+      </div>
+    </div>
+  </div>
+</section>

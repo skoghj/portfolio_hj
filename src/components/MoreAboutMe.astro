@@ -1,233 +1,85 @@
-<!-- ============== About / Folder Stack (in-section cinematic reveal) ============== -->
-<section id="about-folders" class="absec">
-  <div class="absec__container">
-    <!-- Left copy -->
-    <div class="copy parallax" data-depth="0.08">
-      <h2>More about me</h2>
-      <p>I build playful, story-driven interactions that feel alive.</p>
-    </div>
+<section 
+    x-data="{ inView: false }"
+    x-init="
+      const observer = new IntersectionObserver((entries) => {
+        inView = entries[0].isIntersecting;
+      }, { threshold: 0.3 });
+      observer.observe($el);
+    "
+    class="bg-[#1B1E1F] text-white py-20 md:py-28"
+  >
+    <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-16 items-center px-5 md:px-6">
+      
+      <!-- 🔹 Left: Image -->
+      <div 
+        x-show="inView"
+        x-transition:enter="transition ease-out duration-1000 delay-200"
+        x-transition:enter-start="opacity-0 transform translate-y-10 scale-95"
+        x-transition:enter-end="opacity-100 transform translate-y-0 scale-100"
+        class="md:col-span-5"
+      >
+        <img 
+          src="/mig2.webp" 
+          alt="Huijin Bak portrait"
+          class="w-full h-auto rounded-md shadow-lg object-cover border border-neutral-700"
+        />
+      </div>
 
-    <!-- Right: folder stack -->
-    <div class="stack parallax" data-depth="0.16" aria-label="folder stack">
-      <!-- 각 폴더는 버튼. 클릭하면 아래 .reveal이 “섹션 폭만큼” 시네마틱하게 열림 -->
-      <button class="folder f1"
-        data-title="Text title"
-        data-text="for now, just something text her."
-        data-image="/your-image.jpg" aria-label="Open blue folder"></button>
+      <!-- 🔹 Right: Text & Tags -->
+      <div 
+        x-show="inView"
+        x-transition:enter="transition ease-out duration-1000 delay-300"
+        x-transition:enter-start="opacity-0 transform translate-y-10"
+        x-transition:enter-end="opacity-100 transform translate-y-0"
+        class="md:col-span-7 flex flex-col gap-6"
+      >
+        <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight">
+          MY NAME IS HUIJIN BAK
+        </h2>
 
-      <button class="folder f2"
-        data-title="Pink"
-        data-text="Side project notes here."
-        data-image="/your-image-2.jpg" aria-label="Open pink folder"></button>
-
-      <button class="folder f3"
-        data-title="Green"
-        data-text="Process / sketches."
-        data-image="/your-image-3.jpg" aria-label="Open green folder"></button>
-
-      <button class="folder f4"
-        data-title="Yellow"
-        data-text="Background, timeline, small bio."
-        data-image="/your-image-4.jpg" aria-label="Open yellow folder"></button>
-
-      <button class="folder f5"
-        data-title="Gray"
-        data-text="Contact me anytime."
-        data-image="/your-image-5.jpg" aria-label="Open gray folder"></button>
-    </div>
-  </div>
-
-  <!-- ▲ 위 컨테이너 ‘안’에서만 확장되는 시네마틱 리빌 -->
-  <div class="reveal" aria-hidden="true">
-    <!-- 좌/우 커튼 (pseudo로 제어) -->
-    <div class="reveal__inner">
-      <button class="reveal__close" aria-label="Close">×</button>
-
-      <!-- 원하는 레이아웃 (피그마 스샷처럼 좌 텍스트 / 우 이미지) -->
-      <div class="reveal__grid">
-        <div class="reveal__text">
-          <small class="reveal__kicker">Frame 29</small>
-          <h3 id="rvTitle">Text title</h3>
-          <p id="rvBody">for now, just something text her.</p>
+        <!-- Tags Row 1 -->
+        <div class="flex flex-wrap gap-3 md:gap-4">
+          <span class="px-4 py-2 bg-white text-black rounded-full text-sm font-medium">South Korea</span>
+          <span class="px-4 py-2 bg-white text-black rounded-full text-sm font-medium">MBTI: INFP</span>
+          <span class="px-4 py-2 bg-white text-black rounded-full text-sm font-medium">B Type</span>
+          <span class="px-4 py-2 bg-white text-black rounded-full text-sm font-medium">Basadur: Generator</span>
         </div>
-        <div class="reveal__media">
-          <img id="rvImg" src="" alt="">
+
+        <!-- Tags Row 2 -->
+        <div class="flex flex-wrap gap-3 md:gap-4">
+          <span class="px-4 py-2 bg-white text-black rounded-full text-sm font-medium">Adventurous</span>
+          <span class="px-4 py-2 bg-white text-black rounded-full text-sm font-medium">Introverted</span>
+          <span class="px-4 py-2 bg-white text-black rounded-full text-sm font-medium">Flexible</span>
+          <span class="px-4 py-2 bg-white text-black rounded-full text-sm font-medium">Independent</span>
+        </div>
+
+        <!-- Divider -->
+        <div class="border-t border-white/20 my-6 w-full"></div>
+
+        <!-- Hobby section -->
+        <h3 class="text-2xl md:text-3xl font-extrabold">MY HOBBYS AND INSPIRATION</h3>
+
+        <div class="flex flex-wrap gap-3 md:gap-4">
+          <span class="px-4 py-2 bg-white text-black rounded-full text-sm font-medium">TRAVELING</span>
+          <span class="px-4 py-2 bg-white text-black rounded-full text-sm font-medium">FILME</span>
+          <span class="px-4 py-2 bg-white text-black rounded-full text-sm font-medium">MUSIC</span>
+          <span class="px-4 py-2 bg-white text-black rounded-full text-sm font-medium">EATING</span>
+          <span class="px-4 py-2 bg-white text-black rounded-full text-sm font-medium">Youtube</span>
+          <span class="px-4 py-2 bg-white text-black rounded-full text-sm font-medium">Everyday life</span>
+          <span class="px-4 py-2 bg-white text-black rounded-full text-sm font-medium">3B - Bed, Bath, Bus</span>
+          <span class="px-4 py-2 bg-white text-black rounded-full text-sm font-medium">People</span>
+        </div>
+
+        <!-- Download CV Button -->
+        <div class="pt-8">
+          <a
+            href="/CV_HuijinBak.pdf"
+            class="inline-block bg-[#B6FF3B] text-black text-lg md:text-xl font-extrabold px-8 py-4 rounded-full shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300"
+            download
+          >
+            DOWNLOAD MY CV HERE
+          </a>
         </div>
       </div>
     </div>
-  </div>
-</section>
-<style>
-    /* ---------- Base layout ---------- */
-.absec{ position:relative; background:#e7f4f7; overflow:clip; }
-.absec__container{
-  --g:32px;
-  max-width:1200px; margin:0 auto; padding:64px 20px;
-  display:grid; grid-template-columns:1fr 1fr; gap:var(--g); align-items:center;
-  min-height:640px;
-}
-.copy h2{ font-size:clamp(28px,4vw,44px); margin:0 0 10px; }
-.copy p{ margin:0; color:#1f1f1f; opacity:.8; }
-
-/* ---------- Folder stack ---------- */
-.stack{ position:relative; height:520px; }
-.folder{
-  position:absolute; left:0; right:0; margin-inline:auto;
-  width:min(540px,80%); height:220px; border:0; padding:0; cursor:pointer;
-  background-size:contain; background-repeat:no-repeat; background-position:center bottom;
-  transform:translateY(0); transition:transform .35s ease, filter .35s ease;
-  filter:drop-shadow(0 10px 18px rgba(0,0,0,.08));
-}
-.folder:hover{ transform:translateY(-6px); filter:drop-shadow(0 16px 26px rgba(0,0,0,.14)); }
-
-/* 당신이 Export한 SVG 경로/이름으로 교체 */
-.f1{ z-index:5; bottom:0;    background-image:url("/1.svg"); }
-.f2{ z-index:4; bottom:80px; background-image:url("/2.svg"); }
-.f3{ z-index:3; bottom:150px;background-image:url("/3.svg"); }
-.f4{ z-index:2; bottom:220px;background-image:url("/4.svg"); }
-.f5{ z-index:1; bottom:290px;background-image:url("/5.svg"); }
-
-/* ---------- Cinematic in-section reveal ---------- */
-/* 섹션 ‘가운데’에, 섹션 폭만큼만 확장되는 캔버스 */
-.reveal{
-  --pad:20px;
-  position:absolute; left:50%; transform:translateX(-50%);
-  top:0; width:min(1200px, 100% - calc(var(--pad)*2)); padding:0 var(--pad);
-  height:0; pointer-events:none; /* 닫힌 상태엔 클릭 막기 */
-  transition:height .65s cubic-bezier(.2,.8,.2,1);
-  z-index:10;
-}
-
-/* 내부 카드 */
-.reveal__inner{
-  position:relative; background:#f6f7f8; border-radius:16px; overflow:hidden;
-  box-shadow:0 20px 50px rgba(0,0,0,.16);
-  opacity:0; transform:translateY(18px);
-  transition:opacity .45s ease .25s, transform .45s ease .25s;
-}
-
-/* 좌/우 커튼: pseudo 대신 래퍼에 배경을 두겹으로 깔아 애니메이션 */
-.reveal__inner::before,
-.reveal__inner::after{
-  content:""; position:absolute; inset:0; background:#e7f4f7;
-  will-change:transform;
-}
-.reveal__inner::before{ clip-path:inset(0 50% 0 0); transform:translateX(0); }
-.reveal__inner::after { clip-path:inset(0 0 0 50%); transform:translateX(0); }
-
-/* 오픈 상태 */
-.reveal[data-open="true"]{ pointer-events:auto; }
-.reveal[data-open="true"] .reveal__inner{
-  opacity:1; transform:none;
-}
-.reveal[data-open="true"] .reveal__inner::before{
-  transform:translateX(-102%); transition:transform .78s cubic-bezier(.2,.8,.2,1);
-}
-.reveal[data-open="true"] .reveal__inner::after{
-  transform:translateX(102%); transition:transform .78s cubic-bezier(.2,.8,.2,1) .07s;
-}
-
-/* 컨텐츠 레이아웃 (피그마 스샷과 유사) */
-.reveal__grid{
-  display:grid; grid-template-columns:1fr 1.1fr; gap:32px;
-  align-items:center; padding:48px clamp(16px,3vw,40px) 56px;
-}
-.reveal__kicker{ color:#b8b8b8; font-weight:600; letter-spacing:.02em; }
-.reveal__text h3{ font-size:clamp(28px,4vw,56px); line-height:1.04; margin:.2em 0 .3em; }
-.reveal__text p{ font-size:clamp(14px,1.4vw,18px); font-weight:700; opacity:.85; }
-
-.reveal__media{ width:100%; aspect-ratio:16/10; overflow:hidden; border-radius:12px; }
-.reveal__media img{ width:100%; height:100%; object-fit:cover; transform:scale(1.04); }
-
-/* 닫기 버튼 */
-.reveal__close{
-  position:absolute; top:10px; right:10px; z-index:2;
-  width:36px; height:36px; border-radius:10px; border:0; cursor:pointer;
-  background:#0f1113; color:#fff; font-size:22px; line-height:36px;
-  box-shadow:0 6px 18px rgba(0,0,0,.25);
-}
-
-/* ---------- Parallax (가벼운) ---------- */
-.parallax{ will-change:transform; }
-
-@media (max-width: 900px){
-  .absec__container{ grid-template-columns:1fr; }
-  .stack{ order:2; height:440px; }
-  .reveal__grid{ grid-template-columns:1fr; gap:18px; padding:28px 18px 32px; }
-}
-
-</style>
-<script>
-    /* ---------- Parallax ---------- */
-(() => {
-  const sec = document.querySelector('#about-folders');
-  const layers = sec.querySelectorAll('.parallax');
-  const onScroll = () => {
-    const r = sec.getBoundingClientRect();
-    if (r.bottom < 0 || r.top > innerHeight) return;
-    const t = (innerHeight - r.top) / (innerHeight + r.height); // ~0..1
-    layers.forEach(el=>{
-      const d = parseFloat(el.dataset.depth || 0.1);
-      el.style.transform = `translateY(${(t - 0.5) * d * -80}px)`;
-    });
-  };
-  addEventListener('scroll', onScroll, {passive:true});
-  onScroll();
-})();
-
-/* ---------- Folder click -> in-section cinematic reveal ---------- */
-(() => {
-  const sec     = document.querySelector('#about-folders');
-  const reveal  = sec.querySelector('.reveal');
-  const inner   = reveal.querySelector('.reveal__inner');
-  const titleEl = sec.querySelector('#rvTitle');
-  const bodyEl  = sec.querySelector('#rvBody');
-  const imgEl   = sec.querySelector('#rvImg');
-  const close   = sec.querySelector('.reveal__close');
-
-  // 열릴 높이를 컨텐츠 실제 높이에 맞춰 부드럽게(0 -> H)
-  function setOpenHeight() {
-    // 잠시 높이를 'auto'로 두고 측정
-    inner.style.position = 'absolute';
-    inner.style.visibility = 'hidden';
-    inner.style.inset = 'auto';
-    inner.style.width = '100%';
-    document.body.offsetHeight; // force reflow
-    const H = inner.scrollHeight;
-    inner.style.position = '';
-    inner.style.visibility = '';
-    reveal.style.height = H + 'px';
-  }
-
-  function openFrom(btn){
-    titleEl.textContent = btn.dataset.title || '';
-    bodyEl.textContent  = btn.dataset.text  || '';
-    if (btn.dataset.image){
-      imgEl.src = btn.dataset.image;
-      imgEl.alt = btn.dataset.title || '';
-    } else {
-      imgEl.removeAttribute('src');
-    }
-
-    reveal.dataset.open = 'true';
-    setOpenHeight();
-
-    // 살짝 스크롤(섹션 안에서만)
-    reveal.scrollIntoView({behavior:'smooth', block:'nearest'});
-  }
-
-  function closeReveal(){
-    reveal.dataset.open = 'false';
-    reveal.style.height = '0px';
-  }
-
-  sec.querySelectorAll('.folder').forEach(btn=>{
-    btn.addEventListener('click', ()=>openFrom(btn));
-    btn.addEventListener('keydown', e=>{
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openFrom(btn); }
-    });
-  });
-  close.addEventListener('click', closeReveal);
-})();
-
-</script>
+  </section>

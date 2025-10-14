@@ -21,40 +21,43 @@ const title = "Welcome | Portfolio";
   <body class="bg-black text-white overflow-hidden h-screen">
     <main class="relative h-full w-full" x-data="doorScene()" x-init="updateBeam(); window.addEventListener('resize', updateBeam)">
       
-      <!-- 🔹 link -->
-      <div class="select-none absolute left-6 md:left-10 top-1/3 z-20 text-[12px] md:text-sm text-gray-300 space-y-3">
-        <a href="/aboutme" @click.prevent="openLink($event)">Om mig</a>
-        <a href="/projects" @click.prevent="openLink($event)">Projekter</a>
-        <a href="/lejeplads" @click.prevent="openLink($event)">Lejeplads</a>
+      <!-- 🔹 Left-side navigation -->
+      <div class="absolute left-[14vw] top-[35vh] text-[12px] md:text-sm text-gray-300 space-y-3 z-20">
+        <a href="/aboutme" @click.prevent="openLink($event)" class="block hover:text-white transition">Om mig</a>
+        <a href="/projects" @click.prevent="openLink($event)" class="block hover:text-white transition">Projekter</a>
+        <a href="/lejeplads" @click.prevent="openLink($event)" class="block hover:text-white transition">Lejeplads</a>
       </div>
 
-      <!-- 🔹 Camera secene -->
-      <div id="camera" class="h-full w-full grid place-items-center [perspective:1400px]">
+      <!-- 🔹 Camera scene -->
+      <div id="camera" class="h-full w-full grid place-items-center [perspective:1600px] [transform-style:preserve-3d]">
         
-        <!-- Enterence -->
-        <h2 class="absolute top-[16%] text-lime-400 text-base md:text-xl tracking-wide z-30">
-          Enter my room
-        </h2>
-
         <!-- Door(Stage) -->
-        <div id="stage" class="relative z-30">
+        <div id="stage" class="relative z-30 [transform-style:preserve-3d]">
+          <!-- ✅ 문 뒤 흰빛 -->
+          <div
+            id="door-light"
+            class="absolute inset-0 bg-white opacity-0 blur-[60px] scale-[1.4] transition-all duration-700"
+            style="z-index:-5;"
+          ></div>
+
+          <!-- 문 -->
           <div
             id="door"
             @click.prevent.stop="open"
-            class="relative w-[clamp(80px,12vw,160px)] aspect-[2/3] border border-white bg-black cursor-pointer [transform-style:preserve-3d] origin-left will-change-transform"
-            style="box-shadow: 0 0 0 1px rgba(255,255,255,.15) inset; backface-visibility: visible;"
+            class="relative w-[clamp(120px,14vw,180px)] aspect-[2/3] border border-white bg-black cursor-pointer origin-left will-change-transform [transform-style:preserve-3d]"
+            style="box-shadow: inset 0 0 0 1px rgba(255,255,255,.15); backface-visibility: visible;"
           >
             <!-- Front of door -->
             <div class="absolute inset-0 bg-black"></div>
 
-            <!-- Door inner -->
+            <!-- Door inner (뒤집힌 면, 약간 밝은 회색) -->
             <div
               id="door-inner"
-              class="absolute inset-0 bg-white"
+              class="absolute inset-0 bg-neutral-900"
               style="transform: rotateY(180deg) translateZ(0.1px); backface-visibility: visible;"
             ></div>
 
-            <!-- handle of door -->
+            <!-- handle -->
             <div
               id="handle"
               class="absolute right-[14%] top-1/2 w-[12px] h-[12px] md:w-[16px] md:h-[16px] rounded-full border border-white/90"
@@ -63,13 +66,10 @@ const title = "Welcome | Portfolio";
           </div>
 
           <!-- Door frame -->
-          <div
-            aria-hidden
-            class="absolute inset-0 -z-10 w-[clamp(82px,12.2vw,164px)] aspect-[2/3] border border-white/30 translate-x-[2px] translate-y-[2px]"
-          ></div>
+          <div aria-hidden class="absolute inset-0 -z-10 w-[clamp(122px,14.2vw,182px)] aspect-[2/3] border border-white/30 translate-x-[2px] translate-y-[2px]"></div>
         </div>
 
-        <!-- Shadow light -->
+        <!-- Light beam (ground reflection) -->
         <div
           id="beam"
           class="pointer-events-none absolute inset-0 z-20 opacity-0 transition-opacity duration-300"
@@ -77,7 +77,11 @@ const title = "Welcome | Portfolio";
             --lx: 50vw;
             --rx: 50vw;
             --y: 62vh;
-            background: radial-gradient(1200px 700px at 50% var(--y), rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.6) 25%, rgba(150,150,150,0.25) 50%, rgba(0,0,0,0) 100%);
+            background: radial-gradient(1200px 700px at 50% var(--y),
+              rgba(255,255,255,0.85) 0%,
+              rgba(255,255,255,0.6) 25%,
+              rgba(150,150,150,0.25) 50%,
+              rgba(0,0,0,0) 100%);
             -webkit-clip-path: polygon(0% 100%, 100% 100%, var(--rx) var(--y), var(--lx) var(--y));
             clip-path: polygon(0% 100%, 100% 100%, var(--rx) var(--y), var(--lx) var(--y));
             mix-blend-mode: screen;
@@ -93,7 +97,7 @@ const title = "Welcome | Portfolio";
     <script>
       document.addEventListener("alpine:init", () => {
         Alpine.data("doorScene", () => ({
-          targetUrl: "/aboutme", // 기본 클릭 시 이동할 페이지
+          targetUrl: "/aboutme",
           isAnimating: false,
 
           updateBeam() {
@@ -106,7 +110,6 @@ const title = "Welcome | Portfolio";
             beam.style.setProperty("--y", (r.bottom - 5) + "px");
           },
 
-          // 🔹 문 클릭 시 (기본 /aboutme)
           open(event) {
             event.preventDefault();
             if (this.isAnimating) return;
@@ -114,63 +117,67 @@ const title = "Welcome | Portfolio";
 
             const door = document.getElementById("door");
             const inner = document.getElementById("door-inner");
-            const camera = document.getElementById("camera");
             const beam = document.getElementById("beam");
-            const overlay = document.getElementById("overlay");
+            const light = document.getElementById("door-light");
+            const camera = document.getElementById("camera");
             const stage = document.getElementById("stage");
 
             this.updateBeam();
 
             const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
-            // 1️⃣ Open door
+            // (1) 문 열기
             tl.to(door, {
-              duration: 1.2,
-              rotateY: -78,
+              duration: 1.5,
+              rotateY: -100,
               transformOrigin: "left center",
-              ease: "power2.out",
-              boxShadow: "0 0 24px rgba(255,255,255,0.25) inset"
+              ease: "power3.inOut",
+              boxShadow: "inset 0 0 24px rgba(255,255,255,0.25)"
             }, 0);
 
-            // 2️⃣ Light beam
-            tl.to(beam, { duration: 1.0, opacity: 1, ease: "power2.out" }, 0.05);
-
-            // 3️⃣ Door inner brighten
-            tl.to(inner, {
+            // (2) 문 뒤 흰빛 확산 (문틈에서 새어나옴)
+            tl.to(light, {
               duration: 1.0,
-              backgroundColor: "rgba(255,255,255,0.95)",
-              ease: "power2.out",
-            }, 0.05);
+              opacity: 1,
+              scale: 1.8,
+              filter: "blur(40px)",
+              ease: "sine.out"
+            }, 0.2);
 
-            // 4️⃣ Camera moving to center
+            // (3) 그림자 빛 (바닥)
+            tl.to(beam, {
+              duration: 1.2,
+              opacity: 1,
+              ease: "power2.out"
+            }, 0.3);
+
+            // (4) 카메라 중앙 이동
             const rect = stage.getBoundingClientRect();
             const dx = window.innerWidth / 2 - (rect.left + rect.width / 2);
             const dy = window.innerHeight / 2 - (rect.top + rect.height / 2);
 
             tl.to("#camera", {
-              duration: 0.8,
+              duration: 1.0,
               x: dx,
               y: dy,
               ease: "power3.inOut"
-            }, 0.4);
+            }, 0.6);
 
-            // 5️⃣ Zoom in and page transition
+            // (5) 줌인 전환
             tl.to("#camera", {
-              duration: 1.0,
-              scale: 5.5,
+              duration: 1.3,
+              scale: 6,
               ease: "power3.in",
-              onComplete: () => {
-                window.location.assign(this.targetUrl);
-              }
-            }, 0.9);
+              onComplete: () => window.location.assign(this.targetUrl)
+            }, 1.0);
           },
 
-          // 🔹 링크 클릭 시: 클릭된 href로 targetUrl 설정 후 open() 실행
+          // 링크 클릭 시
           openLink(event) {
             event.preventDefault();
             const href = event.currentTarget.getAttribute("href");
-            this.targetUrl = href; // 클릭된 링크 주소 저장
-            this.open(event); // 문 열림 애니메이션 실행
+            this.targetUrl = href;
+            this.open(event);
           },
         }));
       });
