@@ -2,6 +2,7 @@
 import MainLayout from "../layouts/MainLayout.astro";
 import MoreAboutMe from "../components/MoreAboutMe.astro";
 import Tool from "../components/Tool.astro";
+
 ---
 
 <MainLayout title="About Me">
@@ -222,11 +223,50 @@ import Tool from "../components/Tool.astro";
   <!-- ===================== TOOLS SECTION ===================== -->
   <Tool></Tool>
  <!-- ===================== CONTACT SECTION ===================== -->
-<section class="mx-auto max-w-6xl px-5 md:px-6 py-16 md:py-28">
-  <h1 class="mb-10 text-2xl md:text-4xl font-extrabold text-neutral-900 will-change-transform will-change-opacity transform-gpu">
+<section class="relative flex flex-col items-center justify-center min-h-screen bg-black overflow-hidden px-6">
+  <h1 id="gradient-text"
+      class="font-extrabold text-center leading-tight tracking-tight select-none block mx-auto"
+      style="
+        font-size: clamp(2rem, 6vw, 6rem);
+        color: transparent;
+        background-image: radial-gradient(circle at center, #ff9966 0%, #feb47b 40%, #ffffff 80%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        background-repeat: no-repeat;
+        background-size: 1200px 1200px;
+        transition: background-position 0.05s linear;
+        max-width: 18ch; /* ✅ 문장 길이 제한 */
+        text-wrap: balance; /* ✅ 문장 길이에 따라 자연스러운 줄바꿈 */
+        padding: 0 1rem;
+      ">
     Every connection begins with curiosity.
   </h1>
+
+  <div class="py-16 text-white flex flex-col items-center justify-center text-center gap-2">
+    <h3 class="text-xl md:text-2xl font-medium">Let's connect</h3>
+    <p class="text-sm md:text-base opacity-90">skoghj@gmail.com</p>
+  </div>
 </section>
+
+<script>
+  const text = document.getElementById("gradient-text");
+
+  window.addEventListener("mousemove", (e) => {
+    const x = e.clientX / window.innerWidth * 100;
+    const y = e.clientY / window.innerHeight * 100;
+
+    text.style.backgroundImage = `
+      radial-gradient(circle at ${x}% ${y}%,
+        #ff9966 0%, #feb47b 40%, #ffffff 80%)
+    `;
+  });
+</script>
+
+
+
+
+
 
 
 </MainLayout>
+
