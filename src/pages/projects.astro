@@ -3,5 +3,202 @@ import MainLayout from "../layouts/MainLayout.astro";
 ---
 
 <MainLayout title="Projects">
-    <h1>Projects</h1>
+
+  <!-- ✅ Hero Section (그대로) -->
+  <section 
+    x-data="{ scrollY: 0 }" 
+    x-init="window.addEventListener('scroll', () => scrollY = window.scrollY)" 
+    class="relative h-screen overflow-hidden"
+  >
+    <img 
+      src="/projekthero.png" 
+      alt="Project Hero" 
+      class="w-full h-full object-cover transform transition-transform duration-700"
+      :style="`transform: translateY(${scrollY * 0.2}px)`"
+    />
+  </section>
+
+  <!-- ✅ Scroll Stack -->
+  <div 
+    x-data="scrollStack"
+    x-init="init()"
+    class="relative  overflow-visible"
+    style="margin-top: 12vh;">  <!-- 히어로 아래 약간의 갭 -->
+  
+    <!-- 스크롤 트랙 높이(필요시 조절: 카드 장수 * 세그먼트 길이 정도) -->
+    <div class="relative min-h-[320vh]">
+
+      <!-- ===== FILE 01 ===== -->
+      <section class="scroll-card z-30">
+        <div class="relative w-[85vw] sm:w-[420px] h-10 sm:h-12 bg-neutral-300 flex items-center pl-4 sm:pl-6 label-clip">
+          <span class="font-semibold text-xs sm:text-sm tracking-widest text-neutral-800">FEATURED WORK 01</span>
+        </div>
+        <div class="flex-1 bg-neutral-200 border border-neutral-300 shadow-md p-6 sm:px-8 sm:py-12 rounded-lg">
+          <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-6 items-start">
+            <div>
+              <h2 class="text-2xl sm:text-3xl font-bold mb-3">Project One</h2>
+              <p class="text-gray-700 text-sm sm:text-base">First file - base of the stack.</p>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+              <div class="bg-gray-400 h-32 sm:h-40 rounded"></div>
+              <div class="bg-gray-400 h-32 sm:h-40 rounded"></div>
+              <div class="bg-gray-400 h-32 sm:h-40 rounded"></div>
+              <div class="bg-gray-400 h-32 sm:h-40 rounded"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== FILE 02 ===== -->
+      <section class="scroll-card z-40">
+        <div class="relative w-[85vw] sm:w-[420px] h-10 sm:h-12 bg-yellow-400 flex items-center pl-4 sm:pl-6 label-clip ml-[15vw] sm:ml-[180px]">
+          <span class="font-semibold text-xs sm:text-sm tracking-widest text-neutral-900">FEATURED WORK 02</span>
+        </div>
+        <div class="flex-1 bg-yellow-200 border border-yellow-300 shadow-md p-6 sm:px-8 sm:py-12 rounded-lg">
+          <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-6 items-start">
+            <div>
+              <h2 class="text-2xl sm:text-3xl font-bold mb-3">Project Two</h2>
+              <p class="text-gray-800 text-sm sm:text-base">Second file - rises and overlaps the first.</p>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+              <div class="bg-yellow-300 h-32 sm:h-40 rounded"></div>
+              <div class="bg-yellow-300 h-32 sm:h-40 rounded"></div>
+              <div class="bg-yellow-300 h-32 sm:h-40 rounded"></div>
+              <div class="bg-yellow-300 h-32 sm:h-40 rounded"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== FILE 03 ===== -->
+      <section class="scroll-card z-50">
+        <div class="relative w-[85vw] sm:w-[420px] h-10 sm:h-12 bg-blue-400 flex items-center pl-4 sm:pl-6 label-clip ml-[30vw] sm:ml-[360px]">
+          <span class="font-semibold text-xs sm:text-sm tracking-widest text-neutral-900">FEATURED WORK 03</span>
+        </div>
+        <div class="flex-1 bg-blue-200 border border-blue-300 shadow-md p-6 sm:px-8 sm:py-12 rounded-lg">
+          <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-6 items-start">
+            <div>
+              <h2 class="text-2xl sm:text-3xl font-bold mb-3">Project Three</h2>
+              <p class="text-gray-800 text-sm sm:text-base">Third file - top of the stack with parallax motion.</p>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+              <div class="bg-blue-300 h-32 sm:h-40 rounded"></div>
+              <div class="bg-blue-300 h-32 sm:h-40 rounded"></div>
+              <div class="bg-blue-300 h-32 sm:h-40 rounded"></div>
+              <div class="bg-blue-300 h-32 sm:h-40 rounded"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <!-- ✅ Styles (모양 유지) -->
+  <style>
+    .label-clip {
+      clip-path: polygon(0 0, calc(100% - 32px) 0, 100% 100%, 0 100%);
+      margin-bottom: 0;
+    }
+    /* sticky로 “히어로 아래 고정” + transform으로만 올림 */
+    .scroll-card {
+      position: sticky;
+      top: 12vh;               /* 히어로 아래 기준점 */
+      height: 80vh;            /* 카드 높이 */
+      transform-origin: top center;
+      will-change: transform;
+      transition: transform 0.2s ease-out;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      padding-top: 0.75rem;    /* 라벨과 본문 사이 살짝 여유 */
+    }
+  </style>
+
+  <!-- ✅ Alpine: 스택 패럴랙스 로직 -->
+  <script>
+    document.addEventListener('alpine:init', () => {
+      Alpine.data('scrollStack', () => ({
+        cards: [],
+        heroH: 0,
+        lastY: 0,
+        easedY: 0,
+
+        // 설정값(간격/세그먼트) — 반응형으로도 조절됨
+        anchorTop: 0,               // sticky 기준(top px)
+        stackOffset: 140,           // 카드 간 초기 아래 오프셋(px) — 촘촘함(모바일에서 자동 축소)
+        segment: 0,                 // 카드 당 스크롤 세그먼트(px)
+        ease: 0.12,                 // 스크롤 스무딩(0~1)
+
+        init() {
+          // 노드/치수
+          this.cards = [...document.querySelectorAll('.scroll-card')];
+          const heroImg = document.querySelector('section img[alt="Project Hero"]') as HTMLElement | null;
+          this.heroH = heroImg?.offsetHeight ?? window.innerHeight;
+
+
+          // sticky top(px) 구하기 (CSS 12vh와 동기화)
+          this.anchorTop = Math.round(window.innerHeight * 0.12);
+
+          // 반응형: 모바일에서 간격 축소
+          this.stackOffset = window.innerWidth < 640 ? 90 : 140;
+
+          // 세그먼트 길이(카드 하나가 “올라오는” 구간 길이)
+          this.segment = Math.round(window.innerHeight * 0.6);
+
+          // 스크롤/리사이즈
+          window.addEventListener('scroll', () => (this.lastY = window.scrollY));
+          window.addEventListener('resize', () => {
+            this.heroH = heroImg ? heroImg.offsetHeight : window.innerHeight;
+            this.anchorTop = Math.round(window.innerHeight * 0.12);
+            this.stackOffset = window.innerWidth < 640 ? 90 : 140;
+            this.segment = Math.round(window.innerHeight * 0.6);
+          });
+
+          // RAF 루프 시작
+          this.raf();
+        },
+
+        // 0~1 clamp
+        clamp01(v) { return Math.max(0, Math.min(1, v)); },
+
+        raf() {
+          // Lenis처럼 부드럽게
+          this.easedY += (this.lastY - this.easedY) * this.ease;
+
+          // 히어로 아래부터 스택 시작
+          const s = Math.max(0, this.easedY - (this.heroH - this.anchorTop));
+
+          // 카드별 처리
+          this.cards.forEach((card, i) => {
+            if (i === 0) {
+              // 1번은 항상 기준 위치(초기 오프셋 0)
+              card.style.transform = 'translate3d(0, 0, 0)';
+              return;
+            }
+
+            // i번째 카드의 “시작 지점” — i번째 세그먼트부터 움직이기 시작
+            const start = (i - 1) * this.segment;
+            const end   = start + this.segment;
+
+            // 0~1 진행률: start에서 end까지
+            const t = this.clamp01((s - start) / (end - start));
+
+            // 초기 아래 오프셋 = i * stackOffset (예: 2번=140, 3번=280)
+            const initial = i * this.stackOffset;
+
+            // 스크롤이 진행될수록 오프셋을 0으로 줄여 위로 “올라오게”
+            const translate = initial * (1 - t);
+
+            // 히어로/헤더 위로는 절대 못 올라가도록 0 이하로 clamp 금지
+            // (translate는 항상 0~initial 범위라 위로 넘치지 않음)
+            card.style.transform = `translate3d(0, ${translate}px, 0)`;
+          });
+
+          requestAnimationFrame(() => this.raf());
+        }
+      }));
+    });
+  </script>
+
 </MainLayout>
