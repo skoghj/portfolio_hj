@@ -1,5 +1,5 @@
 ---
-
+import snuggy from '../../asset/snuggy.svg';
 ---
 
   <!-- ✅ Scroll Stack -->
@@ -139,12 +139,15 @@
                     <!-- Right: Preview (col 4) -->
                     <div class="col-span-12 md:col-span-4 md:justify-self-end">
                       <div
-                        class="relative w-full aspect-[4/3] md:max-w-[360px] overflow-hidden border border-neutral-800/20 rounded"
+                        class="group relative w-full md:max-w-[360px] overflow-hidden border border-neutral-800/20 rounded
+                              max-h-none md:max-h-32 md:transition-[max-height] md:duration-500 md:group-hover:max-h-[520px]"
                       >
                         <img
                           :src="item.img"
                           :alt="item.title"
-                          class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                          class="w-full h-full object-cover md:transition-all md:duration-500 md:group-hover:object-contain"
+                          loading="lazy"
+                          decoding="async"
                         />
                       </div>
                     </div>
