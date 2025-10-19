@@ -11,14 +11,19 @@
   },
   "dependencies": {
     "@astrojs/alpinejs": "^0.4.0",
+    "@astrojs/react": "^4.4.0",
     "@astrojs/tailwind": "^5.1.0",
     "@tailwindcss/container-queries": "^0.1.1",
     "@types/alpinejs": "^3.13.10",
     "alpinejs": "^3.14.1",
     "animate.css": "^4.1.1",
     "astro": "^4.15.3",
+    "framer-motion": "^12.23.24",
     "gsap": "^3.13.0",
-    "motion": "^10.18.0"
+    "motion": "^10.18.0",
+    "react": "^19.2.0",
+    "react-bits": "^1.0.5",
+    "react-dom": "^19.2.0"
   },
   "devDependencies": {
     "@tailwindcss/aspect-ratio": "^0.4.2",

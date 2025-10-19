@@ -23,7 +23,7 @@ const title = "Welcome | Portfolio";
       
       <!-- 🔹 Left-side navigation -->
       <div class="absolute left-[14vw] top-[35vh] text-[12px] md:text-sm text-gray-300 space-y-3 z-20">
-        <a href="/aboutme" @click.prevent="openLink($event)" class="block hover:text-white transition">Om mig</a>
+        <a href="/portfolio" @click.prevent="openLink($event)" class="block hover:text-white transition">Om mig</a>
         <a href="/projects" @click.prevent="openLink($event)" class="block hover:text-white transition">Projekter</a>
         <a href="/lejeplads" @click.prevent="openLink($event)" class="block hover:text-white transition">Lejeplads</a>
       </div>
@@ -97,7 +97,7 @@ const title = "Welcome | Portfolio";
     <script>
       document.addEventListener("alpine:init", () => {
         Alpine.data("doorScene", () => ({
-          targetUrl: "/aboutme",
+          targetUrl: "/portfolio",
           isAnimating: false,
 
           updateBeam() {

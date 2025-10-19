@@ -2,8 +2,30 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base{
-    /* p{
-        @apply text-body;
-    } */
+@font-face {
+  font-family: "SkModernist";
+  src: url("/fonts/sk-modernist-bold-webfont.woff2") format("woff2"),
+    url("/fonts/sk-modernist-bold-webfont.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@layer base {
+  body {
+    font-family: "Helvetica Neue", "sans-serif";
+  }
+  @layer base {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      @apply font-title font-bold text-secondary-50;
+    }
+    p {
+      @apply font-body text-secondary-50;
+    }
+  }
 }

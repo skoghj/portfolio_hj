@@ -1,43 +1,27 @@
 ---
-import MainLayout from "../layouts/MainLayout.astro";
+
 ---
-
-<MainLayout title="Projects">
-
-  <!-- ✅ Hero Section (그대로) -->
-  <section 
-    x-data="{ scrollY: 0 }" 
-    x-init="window.addEventListener('scroll', () => scrollY = window.scrollY)" 
-    class="relative h-screen overflow-hidden"
-  >
-    <img 
-      src="/projekthero.png" 
-      alt="Project Hero" 
-      class="w-full h-full object-cover transform transition-transform duration-700"
-      :style="`transform: translateY(${scrollY * 0.2}px)`"
-    />
-  </section>
 
   <!-- ✅ Scroll Stack -->
   <div 
     x-data="scrollStack"
     x-init="init()"
     class="relative  overflow-visible"
-    style="margin-top: 12vh;">  <!-- 히어로 아래 약간의 갭 -->
+    style="margin-top: 12vh;"> 
   
-    <!-- 스크롤 트랙 높이(필요시 조절: 카드 장수 * 세그먼트 길이 정도) -->
+    <!-- Scroll track height (필요시 조절: 카드 장수 * 세그먼트 길이 정도) -->
     <div class="relative min-h-[320vh]">
 
       <!-- ===== FILE 01 ===== -->
       <section class="scroll-card z-30">
-        <div class="relative w-[85vw] sm:w-[420px] h-10 sm:h-12 bg-neutral-300 flex items-center pl-4 sm:pl-6 label-clip">
-          <span class="font-semibold text-xs sm:text-sm tracking-widest text-neutral-800">Featured Project 01</span>
+        <div class="relative w-[85vw] sm:w-[420px] h-10 sm:h-12 bg-feature1-50 flex items-center pl-4 sm:pl-6 label-clip">
+          <span class="font-semibold text-xs sm:text-sm tracking-widest text-secondary-50 font-title">Featured Project 01</span>
         </div>
-        <div class="flex-1 bg-neutral-200 border border-neutral-300 shadow-md p-6 sm:px-8 sm:py-12 rounded-lg">
+        <div class="flex-1 bg-feature1-50 border border-feature1-50 shadow-md p-6 sm:px-8 sm:py-12">
           <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-6 items-start">
             <div>
               <h2 class="text-2xl sm:text-3xl font-bold mb-3">Concept & Design</h2>
-              <p class="text-gray-700 text-sm sm:text-base">Merging strategy, usability, and creativity into digital solutions.</p>
+              <p class=" text-sm sm:text-base">Merging strategy, usability, and creativity into digital solutions.</p>
             </div>
             <div class="grid grid-cols-2 gap-4">
               <div class="bg-gray-400 h-32 sm:h-40 rounded"></div>
@@ -50,45 +34,99 @@ import MainLayout from "../layouts/MainLayout.astro";
       </section>
 
       <!-- ===== FILE 02 ===== -->
-      <section class="scroll-card z-40">
-        <div class="relative w-[85vw] sm:w-[420px] h-10 sm:h-12 bg-yellow-400 flex items-center pl-4 sm:pl-6 label-clip ml-[15vw] sm:ml-[180px]">
-          <span class="font-semibold text-xs sm:text-sm tracking-widest text-neutral-900">Featured Project 02</span>
+      <section class="scroll-card z-40 ">
+        <div class="relative w-[85vw] sm:w-[420px] h-10 sm:h-12 bg-feature2-50 flex items-center pl-4 sm:pl-6 label-clip ml-[15vw] sm:ml-[180px]">
+          <span class="font-semibold text-xs sm:text-sm tracking-widest text-secondary-50 font-title">Featured Project 02</span>
         </div>
-        <div class="flex-1 bg-yellow-200 border border-yellow-300 shadow-md p-6 sm:px-8 sm:py-12 rounded-lg">
+        <div class="flex-1 bg-feature2-50 border border-feature2-50 shadow-md p-6 sm:px-8 sm:py-12">
           <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-6 items-start">
             <div>
               <h2 class="text-2xl sm:text-3xl font-bold mb-3">Storytelling & Content</h2>
-              <p class="text-gray-800 text-sm sm:text-base">Turning emotion into meaningful digital experiences.</p>
+              <p class=" text-sm sm:text-base">Turning emotion into meaningful digital experiences.</p>
             </div>
             <div class="grid grid-cols-2 gap-4">
-              <div class="bg-yellow-300 h-32 sm:h-40 rounded"></div>
-              <div class="bg-yellow-300 h-32 sm:h-40 rounded"></div>
-              <div class="bg-yellow-300 h-32 sm:h-40 rounded"></div>
-              <div class="bg-yellow-300 h-32 sm:h-40 rounded"></div>
+              <div class="bg-feature2-50 h-32 sm:h-40 rounded"></div>
+              <div class="bg-feature2-50 h-32 sm:h-40 rounded"></div>
+              <div class="bg-feature2-50 h-32 sm:h-40 rounded"></div>
+              <div class="bg-feature2-50 h-32 sm:h-40 rounded"></div>
             </div>
           </div>
         </div>
       </section>
 
       <!-- ===== FILE 03 ===== -->
-      <section class="scroll-card z-50">
-        <div class="relative w-[85vw] sm:w-[420px] h-10 sm:h-12 bg-blue-400 flex items-center pl-4 sm:pl-6 label-clip ml-[30vw] sm:ml-[360px]">
-          <span class="font-semibold text-xs sm:text-sm tracking-widest text-neutral-900">Featured Project 03</span>
+      <section class="scroll-card z-50 ">
+        <div class="relative w-[85vw] sm:w-[420px] h-10 sm:h-12 bg-feature3-50 flex items-center pl-4 sm:pl-6 label-clip ml-[30vw] sm:ml-[360px]">
+          <span class="font-semibold text-xs sm:text-sm tracking-widest text-secondary-50 font-title">Featured Project 03</span>
         </div>
-        <div class="flex-1 bg-blue-200 border border-blue-300 shadow-md p-6 sm:px-8 sm:py-12 rounded-lg">
-          <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-6 items-start">
-            <div>
-              <h2 class="text-2xl sm:text-3xl font-bold mb-3">Interactive Experiences</h2>
-              <p class="text-gray-800 text-sm sm:text-base">Creating immersive digital experiences through interaction.</p>
+        <div class="flex-1 bg-feature3-50 border border-feature3-50 shadow-md p-6 sm:px-8 sm:py-12 rounded-lg">
+          <div class="flex-1 bg-feature3-50 border border-feature3-50 shadow-md p-6 sm:px-8 sm:py-12 rounded-lg"
+            x-data="{
+            active: null,// 필요 시 여러 행으로 확장 가능
+            items: [
+            {
+            title: 'Snuggys Eventyr',
+            year: '2024',
+            roles: ['Brand Identity Design','Logo Design','Illustration'],
+            href: '#',
+            img: '/asset/snuggy.svg',
+            slug: 'snuggys-eventyr'}]}">
+
+          <!-- Headline-->
+            <div class="max-w-6xl mx-auto mb-8">
+              <h2 class="text-2xl sm:text-3xl font-bold mb-2">Interactive Experiences</h2>
+              <p class="text-sm sm:text-base">Creating immersive digital experiences through interaction.</p>
             </div>
-            <div class="grid grid-cols-2 gap-4">
-              <div class="bg-blue-300 h-32 sm:h-40 rounded"></div>
-              <div class="bg-blue-300 h-32 sm:h-40 rounded"></div>
-              <div class="bg-blue-300 h-32 sm:h-40 rounded"></div>
-              <div class="bg-blue-300 h-32 sm:h-40 rounded"></div>
+
+          <!-- Project title / Preview -->
+            <div class="max-w-6xl mx-auto">
+              <div class="grid grid-cols-12 items-end text-[10px] sm:text-xs uppercase tracking-widest
+                border-t border-b border-dotted border-neutral-700/50 py-2">
+              <div class="col-span-12 md:col-span-8">Project title</div>
+              <div class="col-span-12 md:col-span-4 md:text-right">Preview</div>
             </div>
-          </div>
+
+          <!-- List -->
+        <ul role="list" class="divide-y divide-dotted divide-neutral-700/50">
+          <template x-for="(item, idx) in items" :key="item.slug">
+            <li class="group grid grid-cols-12 gap-6 py-6 md:py-8 cursor-pointer select-none"
+                  @mouseenter="active = idx" @mouseleave="active = null" @click="active = active === idx ? null : idx">
+
+          <!-- Left: title + open (col 8) -->
+            <div class="col-span-12 md:col-span-8">
+              <h3 class="font-title text-lg sm:text-xl md:text-2xl font-semibold leading-snug
+                       underline-offset-4 decoration-transparent group-hover:decoration-neutral-800">
+                <a :href="item.href" x-text="item.title"></a>
+              </h3>
+
+              <!-- open area -->
+              <div class="overflow-hidden transition-[max-height,opacity] duration-500 ease-out"
+                 :style="active === idx ? 'max-height:180px;opacity:1' : 'max-height:0;opacity:0'">
+                <div class="mt-3 grid grid-cols-6 md:grid-cols-8 text-[11px] sm:text-xs">
+                  <div class="col-span-2 text-neutral-800" x-text="item.year"></div>
+                  <div class="col-span-4 md:col-span-6 space-y-1">
+                    <template x-for="r in item.roles" :key="r">
+                      <p class="uppercase tracking-widest" x-text="r"></p>
+                    </template>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          <!-- Right: Preview (col 4) -->
+            <div class="col-span-12 md:col-span-4 md:justify-self-end">
+              <div class="relative w-full aspect-[4/3] md:max-w-[360px] overflow-hidden border border-neutral-800/20 rounded">
+                <img :src="item.img" :alt="item.title"
+                   class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]" />
+              </div>
+            </div>
+          </li>
+      </template>
+    </ul>
+  </div>
+</div>
         </div>
+   
       </section>
 
     </div>

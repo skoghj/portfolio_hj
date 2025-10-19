@@ -1,36 +1,41 @@
 ---
-import Link from "./Link.astro";
+import Logo from "../components/Logo.astro";
 ---
 
-<nav x-data="{ open:false, items:['Om mig','Projekter','Lejeplads'] }"
+<nav id="main-nav"
+     x-data="{ open:false, items:['Om mig','Projekter','Lejeplads'] }"
      @keydown.escape="open=false"
      class="fixed inset-x-0 top-0 z-50 bg-white/80 backdrop-blur border-b border-neutral-100">
 
   <div class="mx-auto w-full px-4 lg:px-8">
-    <div class="flex h-16 items-center justify-between">
-      <!-- Logo -->
-      <a href="/" aria-label="Logo" class="shrink-0 flex items-center gap-2">
-        <img src="/svg/elby_logo.svg" alt="Logo" class="h-8 w-auto" />
-      </a>
+    <!-- grid-->
+    <div class="grid grid-cols-[1fr,auto,1fr] items-center h-16">
 
-      <!-- Desktop menu -->
+      <!-- ✅ logo-->
+      <div class="flex justify-start pl-8 md:pl-20">
+        <a href="/" aria-label="Logo" class="h-8 w-auto shrink-0">
+          <Logo />
+        </a>
+      </div>
+
+      <!-- ✅ 중앙: 메뉴 -->
       <ul class="hidden md:flex items-center justify-center gap-10 text-[15px] font-medium">
-        <li><a href="/aboutme" class="hover:opacity-80">Om mig</a></li>
-        <li><a href="/projekter" class="hover:opacity-80">Projekter</a></li>
+        <li><a href="/portfolio" class="hover:opacity-80">Om mig</a></li>
+        <li><a href="/projects" class="hover:opacity-80">Projekter</a></li>
         <li><a href="/lejeplads" class="hover:opacity-80">Lejeplads</a></li>
       </ul>
 
-      <!-- Desktop language pill -->
-      <div class="hidden md:flex items-center">
+      <!-- ✅ 오른쪽: 언어 스위치 -->
+      <div class="hidden md:flex justify-end pr-8 md:pr-20">
         <div class="flex items-center rounded-full border border-neutral-200 p-1 shadow-sm">
           <button class="px-3 py-1 rounded-full text-[13px] font-semibold bg-acc_yel-500 text-black">Eng</button>
           <button class="px-3 py-1 rounded-full text-[13px] text-neutral-700">Dan</button>
         </div>
       </div>
 
-      <!-- Mobile: burger (fixed width, crossfade) -->
+      <!-- ✅ 모바일 메뉴 버튼 (오른쪽 끝 정렬) -->
       <button
-        class="relative md:hidden flex items-center justify-end gap-2 w-[92px] h-10"
+        class="relative md:hidden flex items-center justify-end gap-2 w-[92px] h-10 col-span-3 justify-self-end"
         :aria-expanded="open"
         aria-controls="mobile-drawer"
         @click="open=!open">
@@ -44,14 +49,14 @@ import Link from "./Link.astro";
     </div>
   </div>
 
-  <!-- Mobile drawer -->
+  <!-- ✅ Mobile drawer -->
   <div id="mobile-drawer" class="md:hidden">
     <!-- Backdrop -->
     <div x-show="open" @click="open=false"
          x-transition.opacity
          class="fixed inset-0 z-40 bg-black/40"></div>
 
-    <!-- Panel (full width to match phone) -->
+    <!-- Panel -->
     <aside x-show="open" x-cloak
            x-transition:enter="transform transition ease-out duration-250"
            x-transition:enter-start="translate-x-full"
@@ -71,11 +76,11 @@ import Link from "./Link.astro";
           </button>
         </div>
 
-        <!-- Links: stagger + parallax -->
+        <!-- Links -->
         <ul class="mt-10 flex flex-col gap-8 text-[22px] font-medium">
           <template x-for="(item,i) in items" :key="item">
             <li>
-              <a :href="['/om','/projekter','/lejeplads'][i]"
+              <a :href="['/portfolio','/projects','/lejeplads'][i]"
                  x-show="open"
                  x-transition:enter="transform transition ease-out duration-300"
                  x-transition:enter-start="opacity-0 -translate-y-3"
@@ -91,7 +96,7 @@ import Link from "./Link.astro";
           </template>
         </ul>
 
-        <!-- Language pill (appears after links) -->
+        <!-- Language pill -->
         <div class="mt-auto pt-12">
           <div x-show="open"
                x-transition:enter="transform transition ease-out duration-400"
@@ -110,22 +115,22 @@ import Link from "./Link.astro";
     </aside>
   </div>
 </nav>
+
+<!-- ✅ Navigation click logic -->
 <script is:inline>
-      (function () {
-        const nav = document.getElementById('main-nav');
-        if (!nav) return;
+  (function () {
+    const nav = document.getElementById('main-nav');
+    if (!nav) return;
 
-        nav.addEventListener('click', (e) => {
-          const a = e.target.closest('a[href]');
-          if (!a) return;
+    nav.addEventListener('click', (e) => {
+      const a = e.target.closest('a[href]');
+      if (!a) return;
 
-          // 문 애니메이션 엔트리 포인트가 있으면: 기본 이동 막고 애니메이션 경로 지정
-          if (window.__doorEnter) {
-            e.preventDefault();
-            window.__doorTarget = a.getAttribute('href'); // 목적지 갱신
-            window.__doorEnter();                         // 문 애니메이션 트리거
-          }
-          // 없으면(문이 없는 페이지 등): 일반 링크 이동
-        });
-      })();
-    </script>
+      if (window.__doorEnter) {
+        e.preventDefault();
+        window.__doorTarget = a.getAttribute('href');
+        window.__doorEnter();
+      }
+    });
+  })();
+</script>
