@@ -5,45 +5,12 @@ import Tool from "../components/Tool.astro";
 import Projects from "../components/Projects.astro";
 import { motion, AnimatePresence } from "framer-motion";
 import RotatingText from "../components/RotatingText.jsx";
+import Bubble from "../components/Bubble.astro";
 ---
 
 <MainLayout title="About Me">
   <!-- ===================== HERO ===================== -->
-  <section
-    x-data="{ 
-      y: 0,
-      heroVisible: false
-    }"
-    x-init="
-      y = window.scrollY || 0;
-      setTimeout(() => heroVisible = true, 300);
-    "
-    @scroll.window.passive="y = window.scrollY || 0"
-    class="relative h-[80vh] md:h-[92vh] overflow-hidden"
-  >
-    <!-- Parallax background -->
-    <img
-      x-bind:style="{ transform: 'translateY(' + (y * 0.3) + 'px)' }"
-      src="/hero.png"
-      alt="Hero"
-      class="absolute inset-0 h-full w-full object-cover will-change-transform"
-    />
-
-    <!-- Hero Title -->
-    <div class="relative z-10 flex h-full items-center justify-center">
-      <h1 
-        x-show="heroVisible"
-        x-transition:enter="transition ease-out duration-1000"
-        x-transition:enter-start="opacity-0 transform translate-y-8"
-        x-transition:enter-end="opacity-100 transform translate-y-0"
-        class="text-4xl md:text-7xl font-extrabold font-display tracking-tight text-white drop-shadow-md"
-      >
-        Welcome to my space
-      </h1>
-    </div>
-
-    <div class="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/25 to-transparent"></div>
-  </section>
+ <section><Bubble></Bubble></section>
 
   <!-- ===================== SECTION A ===================== -->
   <section 
@@ -155,8 +122,8 @@ import RotatingText from "../components/RotatingText.jsx";
           x-transition:leave-end="opacity-0 transform translate-y-12 scale-95"
           class="rounded-2xl bg-white p-6 shadow-sm hover:shadow-lg hover:-translate-y-2 transition-all duration-300"
         >
-          <div class="mx-auto mb-4 h-12 w-12">
-            <svg viewBox="0 0 24 24" class="h-12 w-12"><path d="M6 12l6-6 6 6-6 6-6-6z" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+          <div class="mx-auto mb-4 h-24 w-24">
+            <img src="/doublediamond.svg" alt="Double Diamond" class="w-24 h-24"/>
           </div>
           <h4 class="mb-2 text-lg font-semibold text-center">Design Thinking</h4>
           <p class="text-center text-sm leading-6 ">
@@ -175,8 +142,8 @@ import RotatingText from "../components/RotatingText.jsx";
           x-transition:leave-end="opacity-0 transform translate-y-12 scale-95"
           class="rounded-2xl bg-white p-6 shadow-sm hover:shadow-lg hover:-translate-y-2 transition-all duration-300"
         >
-          <div class="mx-auto mb-4 h-12 w-12">
-            <svg viewBox="0 0 24 24" class="h-12 w-12"><path d="M12 3v18M3 12h18" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+          <div class="mx-auto mb-4 h-20 w-20">
+            <img src="/ideas.svg" alt="Creative" class="w-20 h-20"/>
           </div>
           <h4 class="mb-2 text-lg font-semibold  text-center">Creative Approach</h4>
           <p class="text-center text-sm leading-6 ">
