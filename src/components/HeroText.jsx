@@ -1,73 +1,70 @@
-import { motion, useAnimationFrame } from "framer-motion";
 import { useRef } from "react";
+import { useAnimationFrame } from "framer-motion";
 
 export default function HeroCircleText() {
   const ref = useRef(null);
+
   const words = [
-    "Aurora",
-    "Lullaby",
-    "Labyrinth",
-    "Idyllic",
-    "Felicity",
-    "Demure",
-    "Chatoyant",
-    "TheseDays",
-    "Bungalow",
-    "DonOfGold",
-    "Aurora",
-    "Lullaby",
-    "Labyrinth",
-    "Idyllic",
-    "Felicity",
-    "Demure",
-    "Chatoyant",
-    "TheseDays",
-    "Bungalow",
-    "DonOfGold",
+    "Empathy",
+    "Creativity",
+    "Concept",
+    "Iteration",
+    "Aesthetics",
+    "Function",
+    "Balance",
+    "Intuition",
+    "Experience",
+    "Curiosity",
+    "Emotion",
+    "Harmony",
+    "Contrast",
+    "Storytelling",
+    "Process",
+    "Insight",
+    "Simplicity",
+    "Innovation",
   ];
 
-  // Framer Motion으로 원형 회전 애니메이션 구현
+  // Rotation animation
   useAnimationFrame((t) => {
-    if (ref.current) {
-      ref.current.style.transform = `rotate(${t / 50}deg)`;
-    }
+    if (ref.current) ref.current.style.transform = `rotate(${t / 60}deg)`; // rotation speed
   });
 
-  const radius = 40;
+  const radius = 80; // circle radius (px)
 
   return (
-    <div className="relative w-[400px] h-[400px] flex items-center justify-center">
-      <div
-        ref={ref}
-        className="absolute inset-0 flex items-center justify-center will-change-transform"
-      >
-        {words.map((word, i) => (
-          <div
-            key={i}
-            className="absolute top-1/2 left-1/2"
-            style={{
-              transform: `rotate(${(i * 360) / words.length}deg)`,
-              transformOrigin: "0 0",
-            }}
-          >
-            {[...word].map((letter, j) => (
-              <span
-                key={j}
-                className="inline-block text-[22px] font-serif text-neutral-800"
-                style={{
-                  transform: `
-                    translate(${radius}px, ${-j * 18}px)
-                    rotate(${-(i * 360) / words.length}deg)
-                  `,
-                  transformOrigin: `${radius}px 0`,
-                  transition: `transform 0.4s ease-out`,
-                }}
-              >
-                {letter}
-              </span>
-            ))}
-          </div>
-        ))}
+    <div className="relative w-[400px] h-[400px] flex items-center justify-center bg-transparent">
+      <div ref={ref} className="absolute inset-0 will-change-transform">
+        {words.map((word, i) => {
+          // 1️⃣ Base angle
+          let angle = (i / words.length) * 360;
+
+          // 2️⃣ Small manual spacing corrections
+          if (word === "Storytelling") angle -= 6; // move slightly left
+          if (word === "Process") angle += 6; // move slightly right
+          if (word === "Insight") angle += 4;
+
+          // 3️⃣ Render each word
+          return (
+            <span
+              key={i}
+              className="absolute text-[22px] font-serif text-neutral-800 whitespace-nowrap"
+              style={{
+                top: "50%",
+                left: "50%",
+                transform: `
+                  rotate(${angle}deg)
+                  translate(${radius}px)
+                  rotate(180deg)
+                  translateX(-50%)
+                `,
+                transformOrigin: "center center",
+              }}
+            >
+              {word}
+            </span>
+          );
+        })}
       </div>
     </div>
   );
