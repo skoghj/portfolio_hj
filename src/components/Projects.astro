@@ -44,18 +44,21 @@ import { gsap } from "gsap";
           <div class="col-span-12 md:col-span-3">
             <h3 class="font-title text-xl sm:text-2xl font-semibold mb-2" x-text="current.title"></h3>
             <p class="text-sm text-neutral-800" x-text="current.year"></p>
-              <div class="flex flex-col justify-start">
-            <a 
-              :href="current.link" 
-              target="_blank"
-              class="ml-auto text-[11px] sm:text-xs tracking-widest text-neutral-900 underline underline-offset-4 hover:text-black transition" >
-              View site →</a>
-            <a 
-              :href="current.link" 
-              target="_blank"
-              class="ml-auto text-[11px] sm:text-xs tracking-widest text-neutral-900 underline underline-offset-4 hover:text-black transition" >
-              View proces →</a>
-          </div>
+              <div class="flex flex-col justify-start mt-4 space-y-2">
+                <a 
+                  :href="current.link" 
+                  target="_blank"
+                  class="text-[11px] sm:text-xs tracking-widest text-neutral-900 underline underline-offset-4 hover:text-black transition" >
+                  View site →
+                </a>
+                <a 
+                  :href="current.process" 
+                  target="_blank"
+                  class="text-[11px] sm:text-xs tracking-widest text-neutral-900 underline underline-offset-4 hover:text-black transition" >
+                  View proces →
+                </a>
+              </div>
+
           </div>
 
           <!-- Col 2: design -->
