@@ -1,5 +1,6 @@
 ---
 import { gsap } from "gsap";
+import Button from "../components/Button.astro";
 ---
 
 <!-- ✅ Scroll Stack -->
@@ -43,29 +44,21 @@ import { gsap } from "gsap";
           <!-- Col 1: projects name -->
           <div class="col-span-12 md:col-span-3">
             <h3 class="font-title text-xl sm:text-2xl font-semibold mb-2" x-text="current.title"></h3>
+            <div class="flex"></div>
             <p class="text-sm text-neutral-800" x-text="current.year"></p>
               <div class="flex flex-col justify-start mt-4 space-y-2">
-                <a 
-                  :href="current.link" 
-                  target="_blank"
-                  class="text-[11px] sm:text-xs tracking-widest text-neutral-900 underline underline-offset-4 hover:text-black transition" >
-                  View site →
-                </a>
-                <a 
-                  :href="current.process" 
-                  target="_blank"
-                  class="text-[11px] sm:text-xs tracking-widest text-neutral-900 underline underline-offset-4 hover:text-black transition" >
-                  View proces →
-                </a>
+                <Button text="View Livesite" primaryColor="#EA5E02" link="https://snuggyseventyr.netlify.app/spil" class="w-fit" />
               </div>
-
           </div>
 
           <!-- Col 2: design -->
           <div class="col-span-12 md:col-span-3 md:pt-10">
             <template x-for="r in current.roles" :key="r">
-              <p class="text-xs sm:text-sm tracking-wider uppercase" x-text="r"></p>
+              <p class="text-xs sm:text-sm tracking-wider uppercase py-1" x-text="r"></p>
             </template>
+            <div class="flex flex-col justify-start mt-4 space-y-2">
+                <Button text="View process" primaryColor="#EA5E02" link="/snuggyprocess" class="w-fit" />
+              </div>
           </div>
 
           <!-- Col 3 + 4: images -->
@@ -342,7 +335,7 @@ document.addEventListener("alpine:init", () => {
         title: "Snuggys Eventyr",
         year: "2024",
         link: "https://snuggyseventyr.netlify.app/spil",
-        roles: ["Brand identity design", "Logo design", "Illustration"],
+        roles: ["Interaction Design", "Game Concept Design","Graphic Design","Character Design","Illustration","Animation"],
         img: "/asset/snuggy.svg",
       },
       {

@@ -1,0 +1,75 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+---
+
+<MainLayout title="Snuggy’s Eventyr — Process">
+  <!-- NOTE: sticky가 먹히도록 부모에 overflow:hidden 주지 말기 -->
+  <section class="w-full">
+    <div class="grid md:grid-cols-2 items-start w-full">
+
+      <!-- ✅ 왼쪽: 항상 고정 -->
+      <aside class="sticky top-20 self-start h-fit md:h-screen px-6 md:px-12 py-10">
+        <h1 class="text-3xl md:text-4xl font-bold mb-6">Snuggy’s Eventyr</h1>
+        <p class="text-sm text-neutral-700 leading-relaxed max-w-md">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus,
+          reiciendis. Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        </p>
+        <ul class="mt-6 text-sm space-y-1">
+          <li><b>Year</b> 2024</li>
+          <li><b>Role</b> UX/UI, Interaction, Illustration</li>
+          <li><b>Tools</b> Figma, AI, PS</li>
+        </ul>
+      </aside>
+
+      <!-- ✅ 오른쪽: 스크롤 + 패럴랙스 -->
+      <div id="gallery" class="relative min-h-[250vh] md:min-h-[350vh]">
+        <div class="space-y-10 md:space-y-16 px-6 md:px-12 pt-10">
+          <!-- data-speed 로 각 카드 패럴랙스 강도 제어 -->
+          <img class="par-item rounded-xl shadow-lg w-full object-cover" data-speed="0.10"
+               src="https://placehold.co/1200x700/ea5e02/fff?text=Image+1" alt="" />
+          <img class="par-item rounded-xl shadow-lg w-full object-cover" data-speed="0.18"
+               src="https://placehold.co/1200x700/ffb703/000?text=Image+2" alt="" />
+          <img class="par-item rounded-xl shadow-lg w-full object-cover" data-speed="0.24"
+               src="https://placehold.co/1200x700/219ebc/fff?text=Image+3" alt="" />
+          <img class="par-item rounded-xl shadow-lg w-full object-cover" data-speed="0.30"
+               src="https://placehold.co/1200x700/023047/fff?text=Image+4" alt="" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    /* (선택) 스크롤바 안 보이게 */
+    ::-webkit-scrollbar { display:none; }
+    html, body { scrollbar-width:none; -ms-overflow-style:none; }
+  </style>
+
+  <!-- ✅ 클라이언트에서 GSAP로 패럴랙스 적용 -->
+  <script is:client>
+    import gsap from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+    gsap.registerPlugin(ScrollTrigger);
+
+    // 오른쪽 영역 안의 카드들에 패럴랙스
+    const container = document.querySelector("#gallery");
+    const items = gsap.utils.toArray(".par-item");
+
+    items.forEach((el) => {
+      const speed = parseFloat(el.dataset.speed || "0.15"); // 숫자 클수록 더 많이 움직임
+      gsap.to(el, {
+        yPercent: -speed * 100,
+        ease: "none",
+        scrollTrigger: {
+          trigger: container,
+          start: "top top",
+          end: "bottom bottom",
+          scrub: true,       // 스크롤에 딱 붙게
+          invalidateOnRefresh: true,
+        },
+      });
+    });
+
+    // 레이아웃 변화에 대응
+    window.addEventListener("resize", () => ScrollTrigger.refresh());
+  </script>
+</MainLayout>
