@@ -1,274 +1,380 @@
 ---
-import snuggy from '../../asset/snuggy.svg';
+import { gsap } from "gsap";
 ---
 
-  <!-- ✅ Scroll Stack -->
-  <div 
-    x-data="scrollStack"
-    x-init="init()"
-    class="relative  overflow-visible"
-    style="margin-top: 12vh;"> 
-  
-    <!-- Scroll track height (필요시 조절: 카드 장수 * 세그먼트 길이 정도) -->
-    <div class="relative min-h-[320vh]">
+<!-- ✅ Scroll Stack -->
+<div 
+  x-data="scrollStack"
+  x-init="init()"
+  class="relative overflow-visible"
+  style="margin-top: 12vh;"
+> 
+  <div class="relative min-h-[480vh]">
 
-      <!-- ===== FILE 01 ===== -->
-      <section class="scroll-card z-30">
-        <div class="relative w-[85vw] sm:w-[420px] h-10 sm:h-12 bg-feature1-50 flex items-center pl-4 sm:pl-6 label-clip">
-          <span class="font-semibold text-xs sm:text-sm tracking-widest text-secondary-50 font-title">Featured Project 01</span>
+    <!-- ===== FEATURE 01 ===== -->
+    <section class="scroll-card z-30">
+      <div class="relative w-[85vw] sm:w-[420px] h-10 sm:h-12 bg-feature1-50 flex items-center pl-4 sm:pl-6 label-clip">
+        <span class="font-semibold text-xs sm:text-sm tracking-widest text-secondary-50 font-title py-4">
+          Feature 01
+        </span>
+      </div>
+
+      <!-- ✅ CARD CONTENT -->
+      <div class="flex-1 bg-feature1-50 border border-feature1-50 p-6 shadow-md sm:px-8 sm:py-12 overflow-visible rounded-lg">
+        <div class="max-w-6xl mx-auto mb-8">
+          <h2 class="text-2xl sm:text-3xl font-bold mb-2">Interactive Experiences</h2>
+          <p class="text-sm sm:text-base">Creating immersive digital experience through interaction</p>
         </div>
-        <div class="flex-1 bg-feature1-50 border border-feature1-50 shadow-md p-6 sm:px-8 sm:py-12">
-          <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-6 items-start">
-            <div>
-              <h2 class="text-2xl sm:text-3xl font-bold mb-3">Concept & Design</h2>
-              <p class=" text-sm sm:text-base">Merging strategy, usability, and creativity into digital solutions.</p>
+
+        <!-- Header -->
+        <div class="max-w-6xl mx-auto border-t border-b border-neutral-800 py-2 mb-8">
+          <div class="uppercase text-xs tracking-widest flex justify-between">
+            <span>Projects Title</span>
+            <span>Preview</span>
+          </div>
+        </div>
+
+        <!-- ✅ CAROUSEL -->
+        <div 
+          class="max-w-6xl mx-auto grid md:grid-cols-12 gap-6 items-start"
+          x-data="carouselItem"
+          x-init="init()"
+        >
+          <!-- Col 1: projects name -->
+          <div class="col-span-12 md:col-span-3">
+            <h3 class="font-title text-xl sm:text-2xl font-semibold mb-2" x-text="current.title"></h3>
+            <p class="text-sm text-neutral-800" x-text="current.year"></p>
+              <div class="flex flex-col justify-start">
+            <a 
+              :href="current.link" 
+              target="_blank"
+              class="ml-auto text-[11px] sm:text-xs tracking-widest text-neutral-900 underline underline-offset-4 hover:text-black transition" >
+              View site →</a>
+            <a 
+              :href="current.link" 
+              target="_blank"
+              class="ml-auto text-[11px] sm:text-xs tracking-widest text-neutral-900 underline underline-offset-4 hover:text-black transition" >
+              View proces →</a>
+          </div>
+          </div>
+
+          <!-- Col 2: design -->
+          <div class="col-span-12 md:col-span-3 md:pt-10">
+            <template x-for="r in current.roles" :key="r">
+              <p class="text-xs sm:text-sm tracking-wider uppercase" x-text="r"></p>
+            </template>
+          </div>
+
+          <!-- Col 3 + 4: images -->
+          <div class="col-span-12 md:col-span-6 relative overflow-hidden rounded-lg">
+            <div class="flex transition-transform duration-700 ease-in-out w-full h-full"
+                :style="`transform: translateX(-${index * 100}%);`">
+              <template x-for="(item, i) in items" :key="i">
+                <div class="min-w-full relative w-full aspect-[3/2] overflow-hidden">
+                  <img 
+                  :src="item.img"
+                  :alt="item.title"
+                  class="absolute inset-0 w-full h-full object-cover"/>
+                </div>
+              </template>
             </div>
-            <div class="grid grid-cols-2 gap-4">
-              <div class="bg-gray-400 h-32 sm:h-40 rounded"></div>
-              <div class="bg-gray-400 h-32 sm:h-40 rounded"></div>
-              <div class="bg-gray-400 h-32 sm:h-40 rounded"></div>
-              <div class="bg-gray-400 h-32 sm:h-40 rounded"></div>
+
+            <!-- Arrows -->
+            <button
+              @click="prev()"
+              class="absolute left-2 top-1/2 -translate-y-1/2 bg-white/70 text-black w-8 h-8 rounded-full flex items-center justify-center hover:bg-white"
+            >‹</button>
+            <button
+              @click="next()"
+              class="absolute right-2 top-1/2 -translate-y-1/2 bg-white/70 text-black w-8 h-8 rounded-full flex items-center justify-center hover:bg-white"
+            >›</button>
+
+            <!-- Dots -->
+            <div class="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1">
+              <template x-for="(dot, i) in items" :key="i">
+                <div class="w-2 h-2 rounded-full transition-all duration-300"
+                    :class="index === i ? 'bg-white' : 'bg-white/40'"></div>
+              </template>
             </div>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- ===== FILE 02 ===== -->
-      <section class="scroll-card z-40 ">
-        <div class="relative w-[85vw] sm:w-[420px] h-10 sm:h-12 bg-feature2-50 flex items-center pl-4 sm:pl-6 label-clip ml-[15vw] sm:ml-[180px]">
-          <span class="font-semibold text-xs sm:text-sm tracking-widest text-secondary-50 font-title">Featured Project 02</span>
+    <!-- ===== FEATURE 02 ===== -->
+    <section class="scroll-card z-40">
+      <div class="relative w-[85vw] sm:w-[420px] h-10 sm:h-12 bg-feature2-50 flex items-center pl-4 sm:pl-6 label-clip ml-[15vw] sm:ml-[180px]">
+        <span class="font-semibold text-xs sm:text-sm tracking-widest text-secondary-50 font-title">
+          Feature 02
+        </span>
+      </div>
+      <!-- ✅ CARD CONTENT -->
+      <div class="flex-1 bg-feature2-50 border border-feature2-50 p-6 shadow-md sm:px-8 sm:py-12 overflow-visible rounded-lg">
+        <div class="max-w-6xl mx-auto mb-8">
+          <h2 class="text-2xl sm:text-3xl font-bold mb-2">Storytelling & Contents</h2>
+          <p class="text-sm sm:text-base">Turning emotion into meaningful digital experiences</p>
         </div>
-        <div class="flex-1 bg-feature2-50 border border-feature2-50 shadow-md p-6 sm:px-8 sm:py-12">
-          <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-6 items-start">
-            <div>
-              <h2 class="text-2xl sm:text-3xl font-bold mb-3">Storytelling & Content</h2>
-              <p class=" text-sm sm:text-base">Turning emotion into meaningful digital experiences.</p>
+
+        <!-- Header -->
+        <div class="max-w-6xl mx-auto border-t border-b border-neutral-800 py-2 mb-8">
+          <div class="uppercase text-xs tracking-widest flex justify-between">
+            <span>Projects Title</span>
+            <span>Preview</span>
+          </div>
+        </div>
+
+        <!-- ✅ CAROUSEL -->
+        <div 
+          class="max-w-6xl mx-auto grid md:grid-cols-12 gap-6 items-start"
+          x-data="carouselItem"
+          x-init="init()"
+        >
+          <!-- Col 1: projects name -->
+          <div class="col-span-12 md:col-span-3">
+            <h3 class="font-title text-xl sm:text-2xl font-semibold mb-2" x-text="current.title"></h3>
+            <p class="text-sm text-neutral-800" x-text="current.year"></p>
+          </div>
+
+          <!-- Col 2: design -->
+          <div class="col-span-12 md:col-span-3 md:pt-10">
+            <template x-for="r in current.roles" :key="r">
+              <p class="text-xs sm:text-sm tracking-wider uppercase" x-text="r"></p>
+            </template>
+          </div>
+
+          <!-- Col 3 + 4: images -->
+          <div class="col-span-12 md:col-span-6 relative overflow-hidden rounded-lg">
+            <div class="flex transition-transform duration-700 ease-in-out w-full h-full"
+                :style="`transform: translateX(-${index * 100}%);`">
+              <template x-for="(item, i) in items" :key="i">
+                <div class="min-w-full relative w-full aspect-[3/2] overflow-hidden">
+                  <img 
+                  :src="item.img"
+                  :alt="item.title"
+                  class="absolute inset-0 w-full h-full object-cover"/>
+                </div>
+              </template>
             </div>
-            <div class="grid grid-cols-2 gap-4">
-              <div class="bg-feature2-50 h-32 sm:h-40 rounded"></div>
-              <div class="bg-feature2-50 h-32 sm:h-40 rounded"></div>
-              <div class="bg-feature2-50 h-32 sm:h-40 rounded"></div>
-              <div class="bg-feature2-50 h-32 sm:h-40 rounded"></div>
+
+            <!-- Arrows -->
+            <button
+              @click="prev()"
+              class="absolute left-2 top-1/2 -translate-y-1/2 bg-white/70 text-black w-8 h-8 rounded-full flex items-center justify-center hover:bg-white"
+            >‹</button>
+            <button
+              @click="next()"
+              class="absolute right-2 top-1/2 -translate-y-1/2 bg-white/70 text-black w-8 h-8 rounded-full flex items-center justify-center hover:bg-white"
+            >›</button>
+
+            <!-- Dots -->
+            <div class="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1">
+              <template x-for="(dot, i) in items" :key="i">
+                <div class="w-2 h-2 rounded-full transition-all duration-300"
+                    :class="index === i ? 'bg-white' : 'bg-white/40'"></div>
+              </template>
             </div>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- ===== FILE 03 ===== -->
-      <section class="scroll-card z-50">
-        <!-- 라벨 -->
-        <div class="relative w-[85vw] sm:w-[420px] h-10 sm:h-12 bg-feature3-50 flex items-center pl-4 sm:pl-6 label-clip ml-[30vw] sm:ml-[360px]">
-          <span class="font-semibold text-xs sm:text-sm tracking-widest text-secondary-50 font-title py-4">Featured Project 03</span>
+    <!-- ===== FEATURE 03 ===== -->
+    <section class="scroll-card z-50">
+      <div class="relative w-[85vw] sm:w-[420px] h-10 sm:h-12 bg-feature3-50 flex items-center pl-4 sm:pl-6 label-clip ml-[30vw] sm:ml-[360px]">
+        <span class="font-semibold text-xs sm:text-sm tracking-widest text-secondary-50 font-title py-4">
+          Feature 03
+        </span>
+      </div>
+       <!-- ✅ CARD CONTENT -->
+      <div class="flex-1 bg-feature3-50 border border-feature3-50 p-6 shadow-md sm:px-8 sm:py-12 overflow-visible rounded-lg">
+        <div class="max-w-6xl mx-auto mb-8">
+          <h2 class="text-2xl sm:text-3xl font-bold mb-2">Concept & Design</h2>
+          <p class="text-sm sm:text-base">Merging strategy, usability, and creativity into digital solution</p>
         </div>
 
-        <!-- 카드 -->
-        <div class="flex-1 bg-feature3-50 border border-feature3-50 p-6 shadodw-md sm:px-8 sm:py-12 rounded-lg">
-          <div
-            class="flex-1 bg-feature3-50 border border-feature3-50 p-6 sm:px-8 sm:py-12 rounded-lg"
-            x-data="{
-              active: null,
-              items: [
-                {
-                  title: 'Snuggys Eventyr',
-                  year: '2024',
-                  roles: ['Brand Identity Design','Logo Design','Illustration'],
-                  href: '#',
-                  img: '/asset/snuggy.svg',
-                  slug: 'snuggys-eventyr'
-                },
-                {
-                  title: 'Snuggys Eventyr',
-                  year: '2024',
-                  roles: ['Brand Identity Design','Logo Design','Illustration'],
-                  href: '#',
-                  img: '/asset/snuggy.svg',
-                  slug: 'snuggys-eventyr-2'
-                }
-              ]
-            }"
-          >
-            <!-- Headline -->
-            <div class="max-w-6xl mx-auto mb-8">
-              <h2 class="text-2xl sm:text-3xl font-bold mb-2">Interactive Experiences</h2>
-              <p class="text-sm sm:text-base">Creating immersive digital experiences through interaction.</p>
+        <!-- Header -->
+        <div class="max-w-6xl mx-auto border-t border-b border-neutral-800 py-2 mb-8">
+          <div class="uppercase text-xs tracking-widest flex justify-between">
+            <span>Projects Title</span>
+            <span>Preview</span>
+          </div>
+        </div>
+
+        <!-- ✅ CAROUSEL -->
+        <div 
+          class="max-w-6xl mx-auto grid md:grid-cols-12 gap-6 items-start"
+          x-data="carouselItem"
+          x-init="init()"
+        >
+          <!-- Col 1: projects name -->
+          <div class="col-span-12 md:col-span-3">
+            <h3 class="font-title text-xl sm:text-2xl font-semibold mb-2" x-text="current.title"></h3>
+            <p class="text-sm text-neutral-800" x-text="current.year"></p>
+          </div>
+
+          <!-- Col 2: design -->
+          <div class="col-span-12 md:col-span-3 md:pt-10">
+            <template x-for="r in current.roles" :key="r">
+              <p class="text-xs sm:text-sm tracking-wider uppercase" x-text="r"></p>
+            </template>
+          </div>
+
+          <!-- Col 3 + 4: images -->
+          <div class="col-span-12 md:col-span-6 relative overflow-hidden rounded-lg">
+            <div class="flex transition-transform duration-700 ease-in-out w-full h-full"
+                :style="`transform: translateX(-${index * 100}%);`">
+              <template x-for="(item, i) in items" :key="i">
+                <div class="min-w-full relative w-full aspect-[3/2] overflow-hidden">
+                  <img 
+                  :src="item.img"
+                  :alt="item.title"
+                  class="absolute inset-0 w-full h-full object-cover"/>
+                </div>
+              </template>
             </div>
 
-            <!-- 헤더 + 리스트 (같은 컨테이너로 묶어 정렬 일치) -->
-            <div class="max-w-6xl mx-auto">
-              <!-- 💡 모바일에서 헤더 숨김 -->
-              <div
-                class="hidden md:grid grid-cols-12 items-end text-[10px] sm:text-xs uppercase tracking-widest border-t border-b border-dotted border-neutral-700/50 py-2"
-              >
-                <div class="col-span-12 md:col-span-8">Project title</div>
-                <div class="col-span-12 md:col-span-4 md:text-right">Preview</div>
-              </div>
+            <!-- Arrows -->
+            <button
+              @click="prev()"
+              class="absolute left-2 top-1/2 -translate-y-1/2 bg-white/70 text-black w-8 h-8 rounded-full flex items-center justify-center hover:bg-white"
+            >‹</button>
+            <button
+              @click="next()"
+              class="absolute right-2 top-1/2 -translate-y-1/2 bg-white/70 text-black w-8 h-8 rounded-full flex items-center justify-center hover:bg-white"
+            >›</button>
 
-              <!-- List -->
-              <ul role="list" class="divide-y divide-dotted divide-neutral-700/50">
-                <template x-for="(item, idx) in items" :key="item.slug">
-                  <li
-                    class="group grid grid-cols-12 gap-6 py-6 md:py-8 cursor-pointer select-none"
-                    @mouseenter="active = idx"
-                    @mouseleave="active = null"
-                    @click="active = active === idx ? null : idx"
-                  >
-                    <!-- Left: title + open (col 8) -->
-                    <div class="col-span-12 md:col-span-8">
-                      <h3
-                        class="font-title text-lg sm:text-xl md:text-2xl font-semibold leading-snug underline-offset-4 decoration-transparent group-hover:decoration-neutral-800"
-                      >
-                        <a :href="item.href" x-text="item.title"></a>
-                      </h3>
-
-                      <!-- open area -->
-                      <div
-                        class="overflow-hidden transition-[max-height,opacity] duration-500 ease-out"
-                        :style="active === idx ? 'max-height:180px;opacity:1' : 'max-height:0;opacity:0'"
-                      >
-                        <div class="mt-3 grid grid-cols-6 md:grid-cols-8 text-[11px] sm:text-xs">
-                          <div class="col-span-2 text-neutral-800" x-text="item.year"></div>
-                          <div class="col-span-4 md:col-span-6 space-y-1">
-                            <template x-for="r in item.roles" :key="r">
-                              <p class="uppercase tracking-widest" x-text="r"></p>
-                            </template>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <!-- Right: Preview (col 4) -->
-                    <div class="col-span-12 md:col-span-4 md:justify-self-end">
-                      <div
-                        class="group relative w-full md:max-w-[360px] overflow-hidden border border-neutral-800/20 rounded
-                              max-h-none md:max-h-32 md:transition-[max-height] md:duration-500 md:group-hover:max-h-[520px]"
-                      >
-                        <img
-                          :src="item.img"
-                          :alt="item.title"
-                          class="w-full h-full object-cover md:transition-all md:duration-500 md:group-hover:object-contain"
-                          loading="lazy"
-                          decoding="async"
-                        />
-                      </div>
-                    </div>
-                  </li>
-                </template>
-              </ul>
-              <!-- /List -->
+            <!-- Dots -->
+            <div class="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1">
+              <template x-for="(dot, i) in items" :key="i">
+                <div class="w-2 h-2 rounded-full transition-all duration-300"
+                    :class="index === i ? 'bg-white' : 'bg-white/40'"></div>
+              </template>
             </div>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-
-    </div>
   </div>
+</div>
 
-  <!-- ✅ Styles (모양 유지) -->
-  <style>
-    .label-clip {
-      clip-path: polygon(0 0, calc(100% - 32px) 0, 100% 100%, 0 100%);
-      margin-bottom: 0;
-    }
-    /* sticky로 “히어로 아래 고정” + transform으로만 올림 */
-    .scroll-card {
-      position: sticky;
-      top: 12vh;               /* 히어로 아래 기준점 */
-      height: 80vh;            /* 카드 높이 */
-      transform-origin: top center;
-      will-change: transform;
-      transition: transform 0.2s ease-out;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      padding-top: 0.75rem;    /* 라벨과 본문 사이 살짝 여유 */
-    }
-  </style>
+<!-- ✅ 스타일 -->
+<style>
+.label-clip {
+  clip-path: polygon(0 0, calc(100% - 32px) 0, 100% 100%, 0 100%);
+  margin-bottom: 0;
+}
+.scroll-card {
+  position: sticky;
+  top: 12vh;
+  height: 80vh;
+  transform-origin: top center;
+  will-change: transform;
+  transition: transform 0.2s ease-out;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-top: 0.75rem;
+}
+.scrollbar-thin::-webkit-scrollbar {
+  width: 6px;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: rgba(120, 120, 120, 0.6);
+  border-radius: 4px;
+}
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+</style>
 
-  <!-- ✅ Alpine: 스택 패럴랙스 로직 -->
-  <script>
-    document.addEventListener('alpine:init', () => {
-      Alpine.data('scrollStack', () => ({
-        cards: [],
-        heroH: 0,
-        lastY: 0,
-        easedY: 0,
-
-        // 설정값(간격/세그먼트) — 반응형으로도 조절됨
-        anchorTop: 0,               // sticky 기준(top px)
-        stackOffset: 140,           // 카드 간 초기 아래 오프셋(px) — 촘촘함(모바일에서 자동 축소)
-        segment: 0,                 // 카드 당 스크롤 세그먼트(px)
-        ease: 0.12,                 // 스크롤 스무딩(0~1)
-
-        init() {
-          // 노드/치수
-          this.cards = [...document.querySelectorAll('.scroll-card')];
-          const heroImg = document.querySelector('section img[alt="Project Hero"]') as HTMLElement | null;
-          this.heroH = heroImg?.offsetHeight ?? window.innerHeight;
-
-
-          // sticky top(px) 구하기 (CSS 12vh와 동기화)
-          this.anchorTop = Math.round(window.innerHeight * 0.12);
-
-          // 반응형: 모바일에서 간격 축소
-          this.stackOffset = window.innerWidth < 640 ? 90 : 140;
-
-          // 세그먼트 길이(카드 하나가 “올라오는” 구간 길이)
-          this.segment = Math.round(window.innerHeight * 0.6);
-
-          // 스크롤/리사이즈
-          window.addEventListener('scroll', () => (this.lastY = window.scrollY));
-          window.addEventListener('resize', () => {
-            this.heroH = heroImg ? heroImg.offsetHeight : window.innerHeight;
-            this.anchorTop = Math.round(window.innerHeight * 0.12);
-            this.stackOffset = window.innerWidth < 640 ? 90 : 140;
-            this.segment = Math.round(window.innerHeight * 0.6);
-          });
-
-          // RAF 루프 시작
-          this.raf();
-        },
-
-        // 0~1 clamp
-        clamp01(v) { return Math.max(0, Math.min(1, v)); },
-
-        raf() {
-          // Lenis처럼 부드럽게
-          this.easedY += (this.lastY - this.easedY) * this.ease;
-
-          // 히어로 아래부터 스택 시작
-          const s = Math.max(0, this.easedY - (this.heroH - this.anchorTop));
-
-          // 카드별 처리
-          this.cards.forEach((card, i) => {
-            if (i === 0) {
-              // 1번은 항상 기준 위치(초기 오프셋 0)
-              card.style.transform = 'translate3d(0, 0, 0)';
-              return;
-            }
-
-            // i번째 카드의 “시작 지점” — i번째 세그먼트부터 움직이기 시작
-            const start = (i - 1) * this.segment;
-            const end   = start + this.segment;
-
-            // 0~1 진행률: start에서 end까지
-            const t = this.clamp01((s - start) / (end - start));
-
-            // 초기 아래 오프셋 = i * stackOffset (예: 2번=140, 3번=280)
-            const initial = i * this.stackOffset;
-
-            // 스크롤이 진행될수록 오프셋을 0으로 줄여 위로 “올라오게”
-            const translate = initial * (1 - t);
-
-            // 히어로/헤더 위로는 절대 못 올라가도록 0 이하로 clamp 금지
-            // (translate는 항상 0~initial 범위라 위로 넘치지 않음)
-            card.style.transform = `translate3d(0, ${translate}px, 0)`;
-          });
-
-          requestAnimationFrame(() => this.raf());
+<!-- ✅ SCRIPT -->
+<script>
+document.addEventListener("alpine:init", () => {
+  /* ===== Scroll Stack ===== */
+  Alpine.data("scrollStack", () => ({
+    cards: [],
+    lastY: 0,
+    easedY: 0,
+    heroH: 0,
+    anchorTop: 0,
+    stackOffset: 140,
+    ease: 0.12,
+    segmentList: [],
+    init() {
+      this.cards = [...document.querySelectorAll(".scroll-card")];
+      this.heroH = window.innerHeight;
+      this.anchorTop = Math.round(window.innerHeight * 0.12);
+      this.stackOffset = window.innerWidth < 640 ? 90 : 140;
+      this.segmentList = this.cards.map(() => window.innerHeight * 1.2);
+      window.addEventListener("scroll", () => (this.lastY = window.scrollY));
+      window.addEventListener("resize", () => this.segmentList = this.cards.map(() => window.innerHeight * 1.2));
+      this.raf();
+    },
+    clamp01(v) { return Math.max(0, Math.min(1, v)); },
+    raf() {
+      this.easedY += (this.lastY - this.easedY) * this.ease;
+      const s = Math.max(0, this.easedY - (this.heroH - this.anchorTop));
+      this.cards.forEach((card, i) => {
+        if (i === 0) {
+          card.style.transform = "translate3d(0, 0, 0)";
+          return;
         }
-      }));
-    });
-  </script>
+        const start = this.segmentList.slice(0, i - 1).reduce((a, b) => a + b, 0);
+        const end = start + this.segmentList[i - 1];
+        const t = this.clamp01((s - start) / (end - start));
+        const initial = i * this.stackOffset;
+        const translate = initial * (1 - t);
+        card.style.transform = `translate3d(0, ${translate}px, 0)`;
+      });
+      requestAnimationFrame(() => this.raf());
+    },
+  }));
 
-</MainLayout>
+  /* ===== Carousel Section ===== */
+  Alpine.data("carouselItem", () => ({
+    index: 0,
+    items: [
+      {
+        title: "Snuggys Eventyr",
+        year: "2024",
+        link: "https://snuggyseventyr.netlify.app/spil",
+        roles: ["Brand identity design", "Logo design", "Illustration"],
+        img: "/asset/snuggy.svg",
+      },
+      {
+        title: "Snuggys Eventyr — Gameplay",
+        year: "2024",
+        roles: ["User experience", "User interface"],
+        imgLeft: "https://placehold.co/600x400/ff8c00/ffffff?text=Left+2",
+        imgRight: "https://placehold.co/600x400/f4a261/ffffff?text=Right+2",
+      },
+      {
+        title: "Snuggys Eventyr — World",
+        year: "2024",
+        roles: ["Art direction", "3D elements"],
+        imgLeft: "https://placehold.co/600x400/ffd6a5/000000?text=Left+3",
+        imgRight: "https://placehold.co/600x400/ffeab5/000000?text=Right+3",
+      },
+    ],
+    current: {},
+    init() { this.current = this.items[this.index]; },
+    next() {
+      const p = this.index;
+      this.index = (this.index + 1) % this.items.length;
+      this.transition(p, this.index);
+    },
+    prev() {
+      const p = this.index;
+      this.index = (this.index - 1 + this.items.length) % this.items.length;
+      this.transition(p, this.index);
+    },
+    transition(from, to) {
+      this.current = this.items[to];
+      gsap.fromTo("[x-text='current.title']", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.5 });
+      gsap.fromTo("[x-text='current.year']", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.5, delay: 0.1 });
+      gsap.fromTo(".col-span-12.md\\:col-span-3 p", { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.5, stagger: 0.05, delay: 0.15 });
+    },
+  }));
+});
+</script>

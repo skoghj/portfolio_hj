@@ -6,11 +6,12 @@ import Projects from "../components/Projects.astro";
 import { motion, AnimatePresence } from "framer-motion";
 import RotatingText from "../components/RotatingText.jsx";
 import Bubble from "../components/Bubble.astro";
+import Hero from "../components/Hero.astro";
 ---
 
 <MainLayout title="About Me">
   <!-- ===================== HERO ===================== -->
- <section><Bubble></Bubble></section>
+ <section class="margin:0; background:black; overflow:hidden;"><Hero></Hero></section>
 
   <!-- ===================== SECTION A ===================== -->
   <section 
@@ -122,8 +123,8 @@ import Bubble from "../components/Bubble.astro";
           x-transition:leave-end="opacity-0 transform translate-y-12 scale-95"
           class="rounded-2xl bg-white p-6 shadow-sm hover:shadow-lg hover:-translate-y-2 transition-all duration-300"
         >
-          <div class="mx-auto mb-4 h-24 w-24">
-            <img src="/doublediamond.svg" alt="Double Diamond" class="w-24 h-24"/>
+          <div class="mx-auto mb-4 h-20 w-20">
+            <img src="/doublediamond.svg" alt="Double Diamond" class="w-20 h-20 scale-[1.4]"/>
           </div>
           <h4 class="mb-2 text-lg font-semibold text-center">Design Thinking</h4>
           <p class="text-center text-sm leading-6 ">
@@ -162,8 +163,8 @@ import Bubble from "../components/Bubble.astro";
           x-transition:leave-end="opacity-0 transform translate-y-12 scale-95"
           class="rounded-2xl bg-white p-6 shadow-sm hover:shadow-lg hover:-translate-y-2 transition-all duration-300"
         >
-          <div class="mx-auto mb-4 h-12 w-12">
-            <svg viewBox="0 0 24 24" class="h-12 w-12"><path d="M12 4a5 5 0 015 5v2h1a2 2 0 012 2v5H4v-5a2 2 0 012-2h1V9a5 5 0 015-5z" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+          <div class="mx-auto mb-4 h-20 w-20">
+            <img src="/heart.svg" alt="Human-Centered" class="w-20 h-20"/>
           </div>
           <h4 class="mb-2 text-lg font-semibold text-center">Human-Centered</h4>
           <p class="text-center text-sm leading-6 ">
