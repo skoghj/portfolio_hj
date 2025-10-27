@@ -49,6 +49,9 @@ import Button from "../components/Button.astro";
               <div class="flex flex-col justify-start mt-4 space-y-2">
                 <Button text="View Livesite" primaryColor="#EA5E02" link="https://snuggyseventyr.netlify.app/spil" class="w-fit" />
               </div>
+              <div class="flex flex-col justify-start mt-4 space-y-2">
+                <Button text="View process" primaryColor="#EA5E02" link="/snuggyprocess" class="w-fit" />
+              </div>
           </div>
 
           <!-- Col 2: design -->
@@ -56,9 +59,6 @@ import Button from "../components/Button.astro";
             <template x-for="r in current.roles" :key="r">
               <p class="text-xs sm:text-sm tracking-wider uppercase py-1" x-text="r"></p>
             </template>
-            <div class="flex flex-col justify-start mt-4 space-y-2">
-                <Button text="View process" primaryColor="#EA5E02" link="/snuggyprocess" class="w-fit" />
-              </div>
           </div>
 
           <!-- Col 3 + 4: images -->

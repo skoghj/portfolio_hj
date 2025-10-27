@@ -63,6 +63,7 @@ export default {
         display: ["SkModernist", "sans-serif", "cursive"],
         title: ["Helvetica Neue", "sans-serif"],
         body: ["Helvetica Neue", "sans-serif"],
+        number: ["Nova Mono", "monospace"],
       },
       perspective: {
         1000: "1000px",

@@ -1,75 +1,209 @@
 ---
 import MainLayout from "../layouts/MainLayout.astro";
+import Button from "../components/Button.astro";
 ---
 
 <MainLayout title="Snuggy’s Eventyr — Process">
-  <!-- NOTE: sticky가 먹히도록 부모에 overflow:hidden 주지 말기 -->
-  <section class="w-full">
-    <div class="grid md:grid-cols-2 items-start w-full">
+  <section class="max-w-full mx-4 md:mx-20">
+    <div class="grid md:grid-cols-[1fr_1.5fr] items-start w-full">
 
-      <!-- ✅ 왼쪽: 항상 고정 -->
-      <aside class="sticky top-20 self-start h-fit md:h-screen px-6 md:px-12 py-10">
+      <!-- ✅ 왼쪽 텍스트 -->
+      <aside id="project-info" class="aside-section px-6 md:px-12 py-10">
         <h1 class="text-3xl md:text-4xl font-bold mb-6">Snuggy’s Eventyr</h1>
-        <p class="text-sm text-neutral-700 leading-relaxed max-w-md">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus,
-          reiciendis. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        </p>
-        <ul class="mt-6 text-sm space-y-1">
-          <li><b>Year</b> 2024</li>
-          <li><b>Role</b> UX/UI, Interaction, Illustration</li>
-          <li><b>Tools</b> Figma, AI, PS</li>
+        <ul class="mt-8 text-sm space-y-1 font-body">
+          <li><b>Year</b>: 2023</li>
+          <li><b>Role</b>: Concept Design, Interaction, Illustration, Animation, UI/UX, Coding</li>
+          <li><b>Tools</b>: Illustrator, Photoshop, JavaScript, HTML, CSS</li>
         </ul>
+        <p class="mt-6 text-neutral-700 max-w-md border-t pt-4">
+          'Snuggy's Eventyr' is an interactive web game that I conceptualized and developed as an individual project at KEA. 
+          I was responsible for the entire process – from overall concept development to character design, animation production, 
+          and implementation of interactions. The game is designed with young children as the primary target audience and is built 
+          on intuitive interaction, making it easy for everyone to understand and engage with. The game's symbolic visual elements 
+          are specifically adapted to children's perspective and stimulate their imagination, while providing a natural reward 
+          experience through small achievements.
+        </p>
+        <div class="flex flex-col justify-start mt-4 space-y-2">
+          <Button text="Back to work" primaryColor="#EA5E02" link="/portfolio#Card" class="w-fit" />
+        </div>
+       
       </aside>
 
-      <!-- ✅ 오른쪽: 스크롤 + 패럴랙스 -->
-      <div id="gallery" class="relative min-h-[250vh] md:min-h-[350vh]">
-        <div class="space-y-10 md:space-y-16 px-6 md:px-12 pt-10">
-          <!-- data-speed 로 각 카드 패럴랙스 강도 제어 -->
-          <img class="par-item rounded-xl shadow-lg w-full object-cover" data-speed="0.10"
-               src="https://placehold.co/1200x700/ea5e02/fff?text=Image+1" alt="" />
-          <img class="par-item rounded-xl shadow-lg w-full object-cover" data-speed="0.18"
-               src="https://placehold.co/1200x700/ffb703/000?text=Image+2" alt="" />
-          <img class="par-item rounded-xl shadow-lg w-full object-cover" data-speed="0.24"
-               src="https://placehold.co/1200x700/219ebc/fff?text=Image+3" alt="" />
-          <img class="par-item rounded-xl shadow-lg w-full object-cover" data-speed="0.30"
-               src="https://placehold.co/1200x700/023047/fff?text=Image+4" alt="" />
+      <!-- ✅ 오른쪽: 패럴랙스 -->
+      <div id="gallery" class="relative md:min-h-[350vh]">
+        <!-- 데스크탑용 -->
+        <div class="space-y-10 md:space-y-8 px-6 md:px-12 md:pt-40 md:block hidden">
+          <img class="par-item  w-full object-cover" data-speed="0.10"
+               src="/asset/snuggy.svg" alt="Snuggys Eventyr" title="Snuggys Eventyr" />
+          <img class="par-item  w-full object-cover" data-speed="0.18"
+               src="/asset/spilet_side.svg" alt="play side" title="play side" />
+          <img class="par-item  w-full object-cover" data-speed="0.24"
+               src="/asset//you_win.svg" alt="You win side" title="You win side" />
+          <img class="par-item  w-full object-cover" data-speed="0.30"
+               src="/asset/game_over.svg" alt="Game over side" title="Game over side" />
+          <div class="flex flex-col gap-2 md:grid md:grid-cols-[1fr_3fr] md:gap-5 md:items-start md:content-start">
+              <div class="flex items-start">
+                <h1 class="text-[200px] font-number leading-none -mt-2">01</h1>
+              </div>
+              <div>
+                <h2 class="text-3xl md:text-4xl font-bold pt-2  md:pb-4 ">Concept & Story</h2>
+               <p class="leading-relaxed">My game is about Snuggy, a small raccoon pirate, who embarks on a journey to find the treasure in Cotton Candy 
+                Town in the sky. Cotton Candy Town uses cotton candy as lightning rods on their buildings, but due to frequent 
+                thunderstorms, they are always in short supply. The townspeople offer to trade a treasure chest filled with candy 
+                in exchange for cotton candy. However, a rival pirate is also after the treasure and tries to stop Snuggy by throwing 
+                bombs. The game's goal is simple. If Snuggy collects at least 15 pieces of cotton candy, the town will give him the 
+                treasure chest as a reward, and thanks to the extra cotton candy, the town will be protected from lightning. 
+                But if he fails, the rival pirate will steal the treasure, and the town will remain in danger from the lightning.</p>
+              </div>  
+          </div>
+          <div class="flex md:grid md:grid-cols-2">
+            <img class="par-item  w-full object-cover" data-speed="0.10"
+               src="/asset/titelside_playknap.webp" alt="Snuggys Eventyr play button" title="Snuggys Eventyr play button" />
+            <img class="par-item  w-full object-cover" data-speed="0.10"
+               src="/asset/spiletside_cottoncandy_point.webp" alt="play point" title="play point" />
+            <img class="par-item  w-full object-cover" data-speed="0.10"
+               src="/asset/spiletside_klik_bombe.webp" alt="minus point bombe" title="minus point bombe" />  
+            <img class="par-item  w-full object-cover" data-speed="0.10"
+               src="/asset/spiletside_lyn.webp" alt="minus point lyn" title="minus point lyn" />
+            <img class="par-item  w-full object-cover" data-speed="0.10"
+               src="/asset/titelside_options.webp" alt="option button" title="option button" /> 
+            <img class="par-item  w-full object-cover" data-speed="0.10"
+               src="/asset/titelside_rules.webp" alt="rules button" title="rules button" />       
+          </div>
+          <div class="flex flex-col gap-2 md:grid md:grid-cols-[1fr_3fr] md:gap-5 md:items-start md:content-start">
+              <div class="flex items-start">
+                <h1 class="text-[200px] font-number leading-none -mt-2">02</h1>
+              </div>
+              <div>
+                <h2 class="text-3xl md:text-4xl font-bold pt-2  md:pb-4 ">Prototype & test</h2>
+               <p class="leading-relaxed">My game is about Snuggy, a small raccoon pirate, who embarks on a journey to find the treasure in Cotton Candy 
+                Town in the sky. Cotton Candy Town uses cotton candy as lightning rods on their buildings, but due to frequent 
+                thunderstorms, they are always in short supply. The townspeople offer to trade a treasure chest filled with candy 
+                in exchange for cotton candy. However, a rival pirate is also after the treasure and tries to stop Snuggy by throwing 
+                bombs. The game's goal is simple. If Snuggy collects at least 15 pieces of cotton candy, the town will give him the 
+                treasure chest as a reward, and thanks to the extra cotton candy, the town will be protected from lightning. 
+                But if he fails, the rival pirate will steal the treasure, and the town will remain in danger from the lightning.</p>
+              </div>  
+          </div>
+         
+        </div>
+
+        <!-- ✅ 모바일용: 진짜 패럴랙스 -->
+        <div id="smooth-wrapper" class="block md:hidden">
+          <div id="smooth-content">
+            <section class="hslider">
+              <div class="bg" style="background-image:url('https://placehold.co/1200x700/ea5e02/fff?text=Image+1');"></div>
+            </section>
+            <section class="hslider">
+              <div class="bg" style="background-image:url('https://placehold.co/1200x700/ffb703/000?text=Image+2');"></div>
+            </section>
+            <section class="hslider">
+              <div class="bg" style="background-image:url('https://placehold.co/1200x700/219ebc/fff?text=Image+3');"></div>
+            </section>
+            <section class="hslider">
+              <div class="bg" style="background-image:url('https://placehold.co/1200x700/023047/fff?text=Image+4');"></div>
+            </section>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
   <style>
-    /* (선택) 스크롤바 안 보이게 */
-    ::-webkit-scrollbar { display:none; }
-    html, body { scrollbar-width:none; -ms-overflow-style:none; }
+    /* ✅ 공통 */
+    .aside-section {
+      position: relative;
+      z-index: 10;
+      background: white;
+    }
+    @media (min-width: 768px) {
+      .aside-section {
+        position: sticky;
+        top: 5rem;
+        height: 100vh;
+      }
+    }
+
+    /* ✅ 모바일 full-section 구조 */
+    .hslider {
+      position: relative;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 120%; /* 패럴랙스 공간 확보 */
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      transform: translateY(0);
+    }
+
+    ::-webkit-scrollbar { display: none; }
+    html, body { scrollbar-width: none; -ms-overflow-style: none; }
   </style>
 
-  <!-- ✅ 클라이언트에서 GSAP로 패럴랙스 적용 -->
   <script is:client>
     import gsap from "gsap";
     import { ScrollTrigger } from "gsap/ScrollTrigger";
-    gsap.registerPlugin(ScrollTrigger);
+    import { ScrollSmoother } from "gsap/ScrollSmoother";
+    gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 
-    // 오른쪽 영역 안의 카드들에 패럴랙스
+    const isMobile = window.matchMedia("(max-width: 767px)").matches;
     const container = document.querySelector("#gallery");
     const items = gsap.utils.toArray(".par-item");
 
-    items.forEach((el) => {
-      const speed = parseFloat(el.dataset.speed || "0.15"); // 숫자 클수록 더 많이 움직임
-      gsap.to(el, {
-        yPercent: -speed * 100,
-        ease: "none",
-        scrollTrigger: {
-          trigger: container,
-          start: "top top",
-          end: "bottom bottom",
-          scrub: true,       // 스크롤에 딱 붙게
-          invalidateOnRefresh: true,
-        },
+    // ✅ 데스크탑: 기존 패럴랙스
+    if (!isMobile) {
+      items.forEach((el) => {
+        const speed = parseFloat(el.dataset.speed || "0.15");
+        gsap.to(el, {
+          yPercent: -speed * 100,
+          ease: "none",
+          scrollTrigger: {
+            trigger: container,
+            start: "top top",
+            end: "bottom bottom",
+            scrub: true,
+            invalidateOnRefresh: true,
+          },
+        });
       });
-    });
+    }
 
-    // 레이아웃 변화에 대응
-    window.addEventListener("resize", () => ScrollTrigger.refresh());
+    // ✅ 모바일: ScrollSmoother + 실제 패럴랙스
+    if (isMobile) {
+      const smoother = ScrollSmoother.create({
+        wrapper: "#smooth-wrapper",
+        content: "#smooth-content",
+        smooth: 1.4,
+        effects: true,
+      });
+
+      const sections = gsap.utils.toArray(".hslider");
+      sections.forEach((section, i) => {
+        const bg = section.querySelector(".bg");
+
+        gsap.fromTo(
+          bg,
+          { y: "-10%" },
+          {
+            y: "10%",
+            ease: "none",
+            scrollTrigger: {
+              trigger: section,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: true,
+              invalidateOnRefresh: true,
+            },
+          }
+        );
+      });
+    }
   </script>
 </MainLayout>
