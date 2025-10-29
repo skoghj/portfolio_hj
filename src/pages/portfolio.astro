@@ -9,6 +9,7 @@ import Bubble from "../components/Bubble.astro";
 import Hero from "../components/Hero.astro";
 import Button from "../components/Button.astro";
 import Download from "../components/DownloadButton.jsx";
+import Contact from "@/components/Contact.astro";
 ---
 
 <MainLayout title="About Me">
@@ -182,49 +183,10 @@ import Download from "../components/DownloadButton.jsx";
    <div id="Card"> <Projects></Projects></div>
  
  <!-- ===================== CONTACT SECTION ===================== -->
-<section class="relative flex flex-col items-center justify-center min-h-screen bg-black overflow-hidden px-6">
-  <h1 id="gradient-text"
-      class="font-extrabold text-center leading-tight tracking-tight select-none block mx-auto"
-      style="
-        font-size: clamp(2rem, 6vw, 6rem);
-        color: transparent;
-        background-image: radial-gradient(circle at center, #ff9966 0%, #feb47b 40%, #ffffff 80%);
-        -webkit-background-clip: text;
-        background-clip: text;
-        background-repeat: no-repeat;
-        background-size: 1200px 1200px;
-        transition: background-position 0.05s linear;
-        max-width: 18ch; /* ✅ 문장 길이 제한 */
-        text-wrap: balance; /* ✅ 문장 길이에 따라 자연스러운 줄바꿈 */
-        padding: 0 1rem;
-      ">
-    Every connection begins with curiosity.
-  </h1>
-  <div class="flex justify-between gap-56 max-auto max-w-6xl text-white pt-8">
-    <p>skoghj@gmail.com</p>
-    <p>+45 50 38 47 43</p>
-     <a href="https://www.linkedin.com/in/huijin-bak/">LinkedIn</a>
-  </div>
-  <Download 
-    client:load
-/>
-  
-  
+<Contact></Contact>
 </section>
 </MainLayout>
-<script>
-  const text = document.getElementById("gradient-text");
 
-  window.addEventListener("mousemove", (e) => {
-    const x = e.clientX / window.innerWidth * 100;
-    const y = e.clientY / window.innerHeight * 100;
-
-    text.style.backgroundImage = `
-      radial-gradient(circle at ${x}% ${y}%,
-        #ff9966 0%, #feb47b 40%, #ffffff 80%)
-    `;
-  });
-</script>
 
 
 
