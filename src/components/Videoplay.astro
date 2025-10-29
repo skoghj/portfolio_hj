@@ -1,0 +1,60 @@
+---
+const {
+  src = "/asset/snuggy/snuggy_spil.mp4",
+  poster = "",
+  className = "",
+  autoplay = true,
+  loop = true,
+  muted = true,
+} = Astro.props;
+---
+
+<!-- 🎬 Video Mockup Component -->
+<div class={`relative w-full h-auto ${className}`}>
+  <!-- 🎥 Video -->
+  <video
+    id="mockupVideo"
+    src={src}
+    poster={poster}
+    autoplay={autoplay}
+    muted={muted}
+    loop={loop}
+    playsinline
+    class="w-full h-auto transition-all duration-700 ease-in-out"
+  ></video>
+
+  <!-- 🎛️ Sound Toggle -->
+  <button
+    id="soundToggle"
+    class="absolute bottom-4 right-4 bg-black/60 text-white text-sm font-medium px-3 py-2 rounded-full backdrop-blur-sm flex items-center gap-2 hover:bg-black/80 transition"
+  >
+    <span id="soundIcon">🔇</span>
+    <span id="soundLabel">Mute</span>
+  </button>
+</div>
+
+<!-- 💡 Logic -->
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    // ✅ 타입 명시로 TypeScript 에러 제거
+    const video = document.querySelector<HTMLVideoElement>("#mockupVideo");
+    const toggleBtn = document.querySelector<HTMLButtonElement>("#soundToggle");
+    const icon = document.querySelector<HTMLElement>("#soundIcon");
+    const label = document.querySelector<HTMLElement>("#soundLabel");
+
+    // 안전 체크 (null 방지)
+    if (!video || !toggleBtn || !icon || !label) return;
+
+    toggleBtn.addEventListener("click", () => {
+      if (video.muted) {
+        video.muted = false;
+        icon.textContent = "🔊";
+        label.textContent = "Sound On";
+      } else {
+        video.muted = true;
+        icon.textContent = "🔇";
+        label.textContent = "Mute";
+      }
+    });
+  });
+</script>

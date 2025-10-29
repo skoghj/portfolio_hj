@@ -1,6 +1,6 @@
 ---
 import { gsap } from "gsap";
-import Button from "../components/Button.astro";
+import Link from "../components/Link.astro";
 ---
 
 <!-- ✅ Scroll Stack -->
@@ -47,10 +47,10 @@ import Button from "../components/Button.astro";
             <div class="flex"></div>
             <p class="text-sm text-neutral-800" x-text="current.year"></p>
               <div class="flex flex-col justify-start mt-4 space-y-2">
-                <Button text="View Livesite" primaryColor="#EA5E02" link="https://snuggyseventyr.netlify.app/spil" class="w-fit" />
+                <Link text="View Livesite" primaryColor="#EA5E02" link="https://snuggyseventyr.netlify.app/spil" class="w-fit" />
               </div>
               <div class="flex flex-col justify-start mt-4 space-y-2">
-                <Button text="View process" primaryColor="#EA5E02" link="/snuggyprocess" class="w-fit" />
+                <Link text="View process" primaryColor="#EA5E02" link="/snuggyprocess" class="w-fit" />
               </div>
           </div>
 
@@ -336,7 +336,7 @@ document.addEventListener("alpine:init", () => {
         year: "2024",
         link: "https://snuggyseventyr.netlify.app/spil",
         roles: ["Interaction Design", "Game Concept Design","Graphic Design","Character Design","Illustration","Animation"],
-        img: "/asset/snuggy.svg",
+        img: "/asset/snuggy/snuggy.svg",
       },
       {
         title: "Snuggys Eventyr — Gameplay",

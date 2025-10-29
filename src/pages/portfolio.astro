@@ -7,6 +7,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import RotatingText from "../components/RotatingText.jsx";
 import Bubble from "../components/Bubble.astro";
 import Hero from "../components/Hero.astro";
+import Button from "../components/Button.astro";
+import Download from "../components/DownloadButton.jsx";
 ---
 
 <MainLayout title="About Me">
@@ -203,6 +205,9 @@ import Hero from "../components/Hero.astro";
     <p>+45 50 38 47 43</p>
      <a href="https://www.linkedin.com/in/huijin-bak/">LinkedIn</a>
   </div>
+  <Download 
+    client:load
+/>
   
   
 </section>
