@@ -1,240 +1,250 @@
 ---
 import MainLayout from "../layouts/MainLayout.astro";
 import Link from "../components/Link.astro";
-import Button from "../components/Button.astro";
 import Videoplay from "../components/Videoplay.astro";
 import Contact from "../components/Contact.astro";
 ---
 
 <MainLayout title="Snuggy’s Eventyr — Process">
-  <section class="max-w-full mx-4 md:mx-20">
-    <!-- ✅ 1024px 이상은 2컬럼, 이하는 1컬럼 -->
-    <div class="grid lg:grid-cols-[1fr_1.5fr] items-start w-full gap-6">
+  <div id="smooth-wrapper">
+    <div id="smooth-content">
 
-      <!-- ✅ 왼쪽 텍스트 -->
-      <aside id="project-info" class="aside-section px-6 md:px-12 py-10">
-        <h1 class="text-3xl md:text-4xl font-bold mb-6">Snuggy’s Eventyr</h1>
-        <ul class="mt-8 text-sm space-y-1 font-body">
-          <li><b>Year</b>: 2023</li>
-          <li><b>Role</b>: Concept Design, Interaction, Illustration, Animation, UI/UX, Coding</li>
-          <li><b>Tools</b>: Illustrator, Photoshop, JavaScript, HTML, CSS</li>
-        </ul>
-        <p class="mt-6 text-neutral-700 max-w-md border-t pt-4">
-          'Snuggy's Eventyr' is an interactive web game that I conceptualized and developed as an individual project at KEA. 
-          I was responsible for the entire process – from overall concept development to character design, animation production, 
-          and implementation of interactions. The game is designed with young children as the primary target audience and is built 
-          on intuitive interaction, making it easy for everyone to understand and engage with. The game's symbolic visual elements 
-          are specifically adapted to children's perspective and stimulate their imagination, while providing a natural reward 
-          experience through small achievements.
-        </p>
-        <div class="flex flex-col justify-start mt-4 space-y-2">
-          <Link text="See the livesite" primaryColor="#EA5E02" link="https://snuggyseventyr.netlify.app/spil" class="w-fit" />
+      <section class="max-w-full mx-4 md:mx-20 pt-[6rem]">
+        <!-- ✅ 1300px 이상은 2컬럼, 이하에서는 1컬럼 -->
+        <div class="grid grid-cols-1 xl:grid-cols-[1fr_1.5fr] items-start w-full gap-6">
+
+          <!-- ✅ 왼쪽 텍스트 -->
+          <aside id="project-info" class="aside-section px-6 md:px-12 py-10">
+            <h1 class="text-3xl md:text-4xl font-bold mb-6">Snuggy’s Eventyr</h1>
+            <ul class="mt-8 text-sm space-y-1 font-body">
+              <li><b>Year</b>: 2023</li>
+              <li><b>Role</b>: Concept Design, Interaction, Illustration, Animation, UI/UX, Coding</li>
+              <li><b>Tools</b>: Illustrator, Photoshop, JavaScript, HTML, CSS</li>
+            </ul>
+            <p class="mt-6 text-neutral-700 max-w-md border-t pt-4 leading-relaxed">
+              'Snuggy's Eventyr' is an interactive web game that I conceptualized and developed as an individual project at KEA. 
+              I was responsible for the entire process – from overall concept development to character design, animation production, 
+              and implementation of interactions. The game is designed with young children as the primary target audience and is built 
+              on intuitive interaction, making it easy for everyone to understand and engage with. The game's symbolic visual elements 
+              are specifically adapted to children's perspective and stimulate their imagination, while providing a natural reward 
+              experience through small achievements.
+            </p>
+            <div class="flex flex-col justify-start mt-4 space-y-2">
+              <Link text="See the livesite" primaryColor="#EA5E02" link="https://snuggyseventyr.netlify.app/spil" class="w-fit" />
+            </div>
+          </aside>
+
+          <!-- ✅ 오른쪽: 패럴랙스 갤러리 -->
+          <div id="gallery" class="relative w-full">
+            <div class="space-y-10 md:space-y-8 px-6 md:px-12">
+
+              <img class="par-item w-full object-cover" data-speed="0.10"
+                src="/asset/snuggy/snuggy.svg" alt="Snuggys Eventyr" title="Snuggys Eventyr" />
+              <img class="par-item w-full object-cover" data-speed="0.18"
+                src="/asset/snuggy/spilet_side.svg" alt="play side" title="play side" />
+              <img class="par-item w-full object-cover" data-speed="0.24"
+                src="/asset/snuggy/you_win.svg" alt="You win side" title="You win side" />
+              <img class="par-item w-full object-cover" data-speed="0.30"
+                src="/asset/snuggy/game_over.svg" alt="Game over side" title="Game over side" />
+
+              <!-- 01 Concept -->
+              <div class="grid grid-cols-1 md:grid-cols-[1fr_3fr] gap-6 items-start mt-10">
+                <div class="hidden md:block">
+                  <h1 class="number-size font-number leading-none -mt-2">01</h1>
+                </div>
+                <div>
+                  <h2 class="text-3xl md:text-4xl font-bold pb-2 md:pb-4">Concept</h2>
+                  <p>
+                    The idea for Snuggy’s Eventyr originated during an idea workshop using the “dictionary method” for concept generation.
+                    I randomly selected three words — “a pig”, “in the sky”, and “to sail” and combined them to create the foundation of the story.
+                    Through a mind map, I developed the world and storyline further, and during the process, I changed the main character 
+                    from a pig to the raccoon pirate Snuggy to create a more dynamic and playful atmosphere.
+                    The project focused less on a complex narrative and more on visual rhythm and sensory interaction.
+                    Movement, delight animation, and sound were designed to deliver intuitive feedback, allowing even short interactions to feel 
+                    responsive and engaging.
+                    The goal was to create a simple, intuitive, and joyful interactive experience that young children can easily enjoy.
+                  </p>
+                </div>  
+              </div>
+
+              <img class="par-item w-full object-cover" data-speed="0.30"
+                src="/asset/snuggy/moodboard_snuggy.webp" alt="Moodboard" title="Moodboard" />
+              <img class="par-item w-full object-cover" data-speed="0.30"
+                src="/asset/snuggy/styleboard_snuggy.webp" alt="Styleboard" title="Styleboard" />
+
+              <!-- 02 Story -->
+              <div class="grid grid-cols-1 md:grid-cols-[1fr_3fr] gap-6 items-start mt-10">
+                <div class="hidden md:block">
+                  <h1 class="number-size font-number leading-none -mt-2">02</h1>
+                </div>
+                <div>
+                  <h2 class="text-3xl md:text-4xl font-bold pb-2 md:pb-4">Story</h2>
+                  <p class="leading-relaxed">
+                    My game is about Snuggy, a small raccoon pirate, who embarks on a journey to find the treasure in Cotton Candy 
+                    Town in the sky. Cotton Candy Town uses cotton candy as lightning rods on their buildings, but due to frequent 
+                    thunderstorms, they are always in short supply. The townspeople offer to trade a treasure chest filled with candy 
+                    in exchange for cotton candy. However, a rival pirate is also after the treasure and tries to stop Snuggy by throwing 
+                    bombs. The game's goal is simple. If Snuggy collects at least 15 pieces of cotton candy, the town will give him the 
+                    treasure chest as a reward, and thanks to the extra cotton candy, the town will be protected from lightning. 
+                    But if he fails, the rival pirate will steal the treasure, and the town will remain in danger from the lightning.
+                  </p>
+                </div>  
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <img class="par-item w-full object-cover" data-speed="0.10"
+                  src="/asset/snuggy/titelside_playknap.webp" alt="Snuggys Eventyr play button" />
+                <img class="par-item w-full object-cover" data-speed="0.10"
+                  src="/asset/snuggy/spiletside_cottoncandy_point.webp" alt="play point" />
+                <img class="par-item w-full object-cover" data-speed="0.10"
+                  src="/asset/snuggy/spiletside_klik_bombe.webp" alt="minus point bombe" />  
+                <img class="par-item w-full object-cover" data-speed="0.10"
+                  src="/asset/snuggy/spiletside_lyn.webp" alt="minus point lyn" />
+                <img class="par-item w-full object-cover" data-speed="0.10"
+                  src="/asset/snuggy/titelside_options.webp" alt="option button" /> 
+                <img class="par-item w-full object-cover" data-speed="0.10"
+                  src="/asset/snuggy/titelside_rules.webp" alt="rules button" />       
+              </div>
+
+              <!-- 03 Prototype -->
+              <div class="grid grid-cols-1 md:grid-cols-[1fr_3fr] gap-6 items-start mt-10">
+                <div class="hidden md:block">
+                  <h1 class="number-size font-number leading-none -mt-2">03</h1>
+                </div>
+                <div>
+                  <h2 class="text-3xl md:text-4xl font-bold pb-2 md:pb-4">Prototype</h2>
+                  <p class="leading-relaxed">
+                    To explore the interaction flow, I first designed a low-fidelity paper prototype.
+                    This allowed me to rapidly experiment with ideas and iteratively refine the screen layout and player navigation.
+                    For instance, the initial prototype did not include options such as music control or rule settings, but through user 
+                    testing, these features were added to create a more user-friendly experience.
+                    This process helped me refine the overall game structure and validate the core interactions before moving on to 
+                    the digital version.
+                  </p>
+                </div>  
+              </div>
+
+              <div class="w-full">
+                <Videoplay src="/asset/snuggy/snuggy_spil.mp4" className="mt-8" />
+              </div>
+
+              <!-- 04 Final Outcome -->
+              <div class="grid grid-cols-1 md:grid-cols-[1fr_3fr] gap-6 items-start mt-10">
+                <div class="hidden md:block">
+                  <h1 class="number-size font-number leading-none -mt-2">04</h1>
+                </div>
+                <div>
+                  <h2 class="text-3xl md:text-4xl font-bold pb-2 md:pb-4">Final Outcome</h2>
+                  <p class="leading-relaxed">
+                    The final outcome of Snuggy’s Eventyr was developed as an interactive web game.
+                    Each click provides instant visual feedback and rewarding animations, creating engagement even in short play sessions.
+                    The bright color palette, simple forms, and smooth motion deliver a friendly and joyful experience for children, while the rhythm of play, feedback, and reward visually expresses the essence of intuitive interaction.
+                    Through this project, I learned that interactive design can go beyond simple actions — it can expand emotional connection and make users feel truly involved.
+                    It showed me how storytelling and feedback can turn interaction into the core of the experience itself.
+                  </p>
+                </div>  
+              </div>
+            </div>
+          </div>
         </div>
-      </aside>
+      </section>
 
-      <!-- ✅ 오른쪽: 패럴랙스 (1024px 이하에서는 일반 흐름으로 전환) -->
-      <div id="gallery" class="relative w-full lg:py-10">
-        <div class="space-y-10 md:space-y-8 px-6 md:px-12">
-          <img class="par-item w-full object-cover" data-speed="0.10"
-            src="/asset/snuggy/snuggy.svg" alt="Snuggys Eventyr" title="Snuggys Eventyr" />
-          <img class="par-item w-full object-cover" data-speed="0.18"
-            src="/asset/snuggy/spilet_side.svg" alt="play side" title="play side" />
-          <img class="par-item w-full object-cover" data-speed="0.24"
-            src="/asset/snuggy/you_win.svg" alt="You win side" title="You win side" />
-          <img class="par-item w-full object-cover" data-speed="0.30"
-            src="/asset/snuggy/game_over.svg" alt="Game over side" title="Game over side" />
-
-          <!-- 01 Concept -->
-          <div class="flex flex-col gap-2 lg:grid lg:grid-cols-[1fr_3fr] lg:gap-5 lg:items-start lg:content-start">
-            <div class="flex flex-row md:flex-col items-start">
-              <h1 class=" hidden md:block md:text-[100px] lg:text-[200px] font-number leading-none -mt-2">01 </h1>
+      <!-- ✅ See more -->
+      <section class="w-full px-6 md:px-12 mt-20">
+        <h2 class="text-3xl md:text-4xl font-serif mb-8">see more.</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <a href="/#" class="group block">
+            <div class="overflow-hidden">
+              <img 
+                src="https://placehold.co/800x500/111/EEE?text=Project+01" 
+                alt="Love Blast"
+                class="w-full h-auto transition-transform duration-700 ease-out group-hover:scale-105 object-cover"
+              />
             </div>
-            <div>
-              <h2 class="text-3xl md:text-4xl font-bold pt-2 md:pb-4">Concept</h2>
-              <p>
-                The idea for Snuggy’s Eventyr originated during an idea workshop using the “dictionary method” for concept generation.
-                I randomly selected three words — “a pig”, “in the sky”, and “to sail” and combined them to create the foundation of the story.
-                Through a mind map, I developed the world and storyline further, and during the process, I changed the main character 
-                from a pig to the raccoon pirate Snuggy to create a more dynamic and playful atmosphere.
-                The project focused less on a complex narrative and more on visual rhythm and sensory interaction.
-                Movement, delight animation, and sound were designed to deliver intuitive feedback, allowing even short interactions to feel 
-                responsive and engaging.
-                The goal was to create a simple, intuitive, and joyful interactive experience that young children can easily enjoy.
-              </p>
-            </div>  
-          </div>
+            <h3 class="mt-4 text-lg md:text-xl font-light group-hover:underline">Love Blast</h3>
+          </a>
 
-          <img class="par-item w-full object-cover" data-speed="0.30"
-            src="/asset/snuggy/moodboard_snuggy.webp" alt="Moodboard" title="Moodboard" />
-          <img class="par-item w-full object-cover" data-speed="0.30"
-            src="/asset/snuggy/styleboard_snuggy.webp" alt="styleboard" title="Styleboard" />
-
-          <!-- 02 Story -->
-          <div class="flex flex-col gap-2 lg:grid lg:grid-cols-[1fr_3fr] lg:gap-5 lg:items-start lg:content-start">
-            <div class="flex items-start">
-              <h1 class="hidden md:block md:text-[200px] font-number leading-none -mt-2">02</h1>
+          <a href="/#" class="group block">
+            <div class="overflow-hidden">
+              <img 
+                src="https://placehold.co/800x500/ccc/000?text=Project+02" 
+                alt="Youngdabang Brand Identity"
+                class="w-full h-auto transition-transform duration-700 ease-out group-hover:scale-105 object-cover"
+              />
             </div>
-            <div>
-              <h2 class="text-3xl md:text-4xl font-bold pt-2 md:pb-4">Story</h2>
-              <p class="leading-relaxed">
-                My game is about Snuggy, a small raccoon pirate, who embarks on a journey to find the treasure in Cotton Candy 
-                Town in the sky. Cotton Candy Town uses cotton candy as lightning rods on their buildings, but due to frequent 
-                thunderstorms, they are always in short supply. The townspeople offer to trade a treasure chest filled with candy 
-                in exchange for cotton candy. However, a rival pirate is also after the treasure and tries to stop Snuggy by throwing 
-                bombs. The game's goal is simple. If Snuggy collects at least 15 pieces of cotton candy, the town will give him the 
-                treasure chest as a reward, and thanks to the extra cotton candy, the town will be protected from lightning. 
-                But if he fails, the rival pirate will steal the treasure, and the town will remain in danger from the lightning.
-              </p>
-            </div>  
-          </div>
-
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <img class="par-item w-full object-cover" data-speed="0.10"
-              src="/asset/snuggy/titelside_playknap.webp" alt="Snuggys Eventyr play button" />
-            <img class="par-item w-full object-cover" data-speed="0.10"
-              src="/asset/snuggy/spiletside_cottoncandy_point.webp" alt="play point" />
-            <img class="par-item w-full object-cover" data-speed="0.10"
-              src="/asset/snuggy/spiletside_klik_bombe.webp" alt="minus point bombe" />  
-            <img class="par-item w-full object-cover" data-speed="0.10"
-              src="/asset/snuggy/spiletside_lyn.webp" alt="minus point lyn" />
-            <img class="par-item w-full object-cover" data-speed="0.10"
-              src="/asset/snuggy/titelside_options.webp" alt="option button" /> 
-            <img class="par-item w-full object-cover" data-speed="0.10"
-              src="/asset/snuggy/titelside_rules.webp" alt="rules button" />       
-          </div>
-
-          <!-- 03 Prototype -->
-          <div class="flex flex-col gap-2 lg:grid lg:grid-cols-[1fr_3fr] lg:gap-5 lg:items-start lg:content-start">
-            <div class="flex items-start">
-              <h1 class="hidden md:block md:text-[200px] font-number leading-none -mt-2">03</h1>
-            </div>
-            <div>
-              <h2 class="text-3xl md:text-4xl font-bold pt-2 md:pb-4">Prototype</h2>
-              <p class="leading-relaxed">
-                To explore the interaction flow, I first designed a low-fidelity paper prototype.
-                This allowed me to rapidly experiment with ideas and iteratively refine the screen layout and player navigation.
-                For instance, the initial prototype did not include options such as music control or rule settings, but through user 
-                testing, these features were added to create a more user-friendly experience.
-                This process helped me refine the overall game structure and validate the core interactions before moving on to 
-                the digital version.
-              </p>
-            </div>  
-          </div>
-
-          <div class="w-full">
-            <Videoplay src="/asset/snuggy/snuggy_spil.mp4" className="mt-8" />
-          </div>
-
-          <!-- 04 Final Outcome -->
-          <div class="flex flex-col gap-2 lg:grid lg:grid-cols-[1fr_3fr] lg:gap-5 lg:items-start lg:content-start">
-            <div class="flex items-start">
-              <h1 class="hidden md:block md:text-[200px] font-number leading-none -mt-2">04</h1>
-            </div>
-            <div>
-              <h2 class="text-3xl md:text-4xl font-bold pt-2 md:pb-4">Final Outcome</h2>
-              <p class="leading-relaxed">
-                The final outcome of Snuggy’s Eventyr was developed as an interactive web game.
-                Each click provides instant visual feedback and rewarding animations, creating engagement even in short play sessions.
-                The bright color palette, simple forms, and smooth motion deliver a friendly and joyful experience for children, while the rhythm of play, feedback, and reward visually expresses the essence of intuitive interaction.
-                Through this project, I learned that interactive design can go beyond simple actions — it can expand emotional connection and make users feel truly involved.
-                It showed me how storytelling and feedback can turn interaction into the core of the experience itself.
-              </p>
-            </div>  
-          </div>
+            <h3 class="mt-4 text-lg md:text-xl font-light group-hover:underline">Youngdabang Brand Identity</h3>
+          </a>
         </div>
-      </div>
+      </section>
+
+      <div><Contact /></div>
     </div>
-    <section class="w-full px-6 md:px-12 mt-20">
-  <h2 class="text-3xl md:text-4xl font-serif mb-8">see more.</h2>
-
-  <!-- ✅ Grid Layout -->
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-    
-    <!-- ✅ 카드 1 -->
-    <a href="/#" class="group block">
-      <div class="overflow-hidden">
-        <img 
-          src="https://placehold.co/800x500/111/EEE?text=Project+01" 
-          alt="Love Blast"
-          class="w-full h-auto transition-transform duration-700 ease-out group-hover:scale-105 object-cover"
-        />
-      </div>
-      <h3 class="mt-4 text-lg md:text-xl font-light group-hover:underline">Love Blast</h3>
-    </a>
-
-    <!-- ✅ 카드 2 -->
-    <a href="/#" class="group block">
-      <div class="overflow-hidden">
-        <img 
-          src="https://placehold.co/800x500/ccc/000?text=Project+02" 
-          alt="Youngdabang Brand Identity"
-          class="w-full h-auto transition-transform duration-700 ease-out group-hover:scale-105 object-cover"
-        />
-      </div>
-      <h3 class="mt-4 text-lg md:text-xl font-light group-hover:underline">Youngdabang Brand Identity</h3>
-    </a>
-
   </div>
-  </section>
-</section>
-<div>
-    <Contact />
-</div>
 </MainLayout>
 
 <style>
-  /* ✅ 공통 */
   .aside-section {
-    position: relative;
-    z-index: 10;
+    position: sticky;
+    top: 5rem;
+    align-self: start;
     background: white;
-    padding-top: 5.5rem;
   }
 
-  /* ✅ 데스크탑 전용 sticky */
-  @media (min-width: 1024px) {
-    .aside-section {
-      position: sticky;
-      top: 5rem;
-      height: 100vh;
-
-    }
-  }
-
-  /* ✅ 모바일 간격 정리 */
-  @media (max-width: 1023px) {
-    #gallery img {
-      border-radius: 0.5rem;
-    }
+  .number-size {
+    font-size: clamp(60px, 10vw, 200px);
   }
 
   ::-webkit-scrollbar { display: none; }
   html, body { scrollbar-width: none; -ms-overflow-style: none; }
 </style>
 
-<script is:client>
+<script is:client="load">
   import gsap from "gsap";
   import { ScrollTrigger } from "gsap/ScrollTrigger";
+  import Lenis from "@studio-freight/lenis";
+
   gsap.registerPlugin(ScrollTrigger);
 
-  const isDesktop = window.matchMedia("(min-width: 1024px)").matches;
-  if (isDesktop) {
-    const container = document.querySelector("#gallery");
-    const items = gsap.utils.toArray(".par-item");
+  // ✅ 부드러운 스크롤
+  const lenis = new Lenis({
+    duration: 1.2,
+    easing: (t) => 1 - Math.pow(1 - t, 3),
+  });
 
-    items.forEach((el) => {
-      const speed = parseFloat(el.dataset.speed || "0.15");
-      gsap.to(el, {
-        yPercent: -speed * 100,
-        ease: "none",
-        scrollTrigger: {
-          trigger: container,
-          start: "top top",
-          end: "bottom bottom",
-          scrub: true,
-          invalidateOnRefresh: true,
-        },
-      });
-    });
+  function raf(time) {
+    lenis.raf(time);
+    requestAnimationFrame(raf);
   }
+  requestAnimationFrame(raf);
+
+  // ✅ 패럴랙스
+  const items = gsap.utils.toArray(".par-item");
+  const infoSection = document.querySelector("#project-info");
+
+  items.forEach((el, i) => {
+    const speed = parseFloat(el.dataset.speed || "0.15");
+    const isFirst = i === 0;
+    const isMobile = window.innerWidth < 1300;
+
+    let startPoint = "top bottom";
+
+    // ✅ 모바일일 때 첫 이미지만 텍스트 아래에서 시작되게 조정
+    if (isFirst && isMobile && infoSection) {
+      const offset = infoSection.offsetHeight; // 왼쪽 텍스트 높이 계산
+      startPoint = `+=${offset} bottom`; // 텍스트 높이만큼 아래서 시작
+    }
+
+    gsap.to(el, {
+      yPercent: isMobile ? 0 : -speed * 100, // 모바일에서는 거의 고정
+      ease: "none",
+      scrollTrigger: {
+        trigger: el,
+        start: startPoint,
+        end: "bottom top",
+        scrub: true,
+        invalidateOnRefresh: true,
+      },
+    });
+  });
 </script>
+

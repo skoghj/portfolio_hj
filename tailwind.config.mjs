@@ -2,8 +2,15 @@
 export default {
   darkMode: ["class"],
   content: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}"],
-
   theme: {
+    // ✅ 기본 브레이크포인트 + 커스텀 desk 추가
+    screens: {
+      sm: "640px",
+      md: "768px",
+      lg: "1024px",
+      xl: "1280px",
+      desk: "1300px", // ← 필요에 따라 1270px로 바꿔도 됨
+    },
     extend: {
       colors: {
         primary: {
@@ -21,15 +28,9 @@ export default {
           DEFAULT: "hsl(var(--accent))",
           foreground: "hsl(var(--accent-foreground))",
         },
-        feature3: {
-          50: "#FFB38D",
-        },
-        feature2: {
-          50: "#B6CFFF",
-        },
-        feature1: {
-          50: "#F1EADC",
-        },
+        feature3: { 50: "#FFB38D" },
+        feature2: { 50: "#B6CFFF" },
+        feature1: { 50: "#F1EADC" },
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         card: {
@@ -65,9 +66,7 @@ export default {
         body: ["Helvetica Neue", "sans-serif"],
         number: ["Nova Mono", "monospace"],
       },
-      perspective: {
-        1000: "1000px",
-      },
+      perspective: { 1000: "1000px" },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
@@ -81,9 +80,7 @@ export default {
     require("@tailwindcss/aspect-ratio"),
     require("@tailwindcss/container-queries"),
     function ({ addUtilities }) {
-      addUtilities({
-        ".preserve-3d": { "transform-style": "preserve-3d" },
-      });
+      addUtilities({ ".preserve-3d": { "transform-style": "preserve-3d" } });
     },
     require("tailwindcss-animate"),
   ],
